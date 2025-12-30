@@ -1,73 +1,80 @@
 import { Button } from "@/components/ui/button";
-import { Wifi, Zap, ArrowRight } from "lucide-react";
-import octopusMascot from "@/assets/octopus-mascot.png";
+import { Wifi, MessageCircle } from "lucide-react";
+import heroCharacter from "@/assets/hero-character.png";
 
 const Hero = () => {
   return (
     <section id="inicio" className="relative min-h-screen bg-hero overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-secondary/80" />
+      
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-10 w-64 h-64 border border-primary-foreground/20 rounded-full" />
+        <div className="absolute top-40 left-20 w-96 h-96 border border-primary-foreground/10 rounded-full" />
+        <div className="absolute bottom-20 right-40 w-80 h-80 border border-primary-foreground/10 rounded-full" />
       </div>
 
-      <div className="container mx-auto relative z-10 pt-32 pb-16 px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-          {/* Content */}
-          <div className="text-center lg:text-left animate-slide-up">
-            <div className="inline-flex items-center gap-2 bg-secondary/20 border border-secondary/30 rounded-full px-4 py-2 mb-6">
-              <Wifi className="w-4 h-4 text-secondary" />
+      <div className="container mx-auto relative z-10 pt-28 md:pt-32 pb-8 md:pb-0 px-4">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[85vh]">
+          {/* Content - Left Side */}
+          <div className="text-left order-2 lg:order-1 animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-primary-foreground/10 border border-primary-foreground/20 rounded-full px-4 py-2 mb-6">
+              <Wifi className="w-4 h-4 text-primary-foreground" />
               <span className="text-primary-foreground text-sm font-medium">
-                Internet Fibra Óptica de Alta Velocidade
+                100% Fibra Óptica
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight mb-6">
-              Conectando você ao{" "}
-              <span className="text-secondary">futuro</span> com a velocidade da{" "}
-              <span className="text-secondary">fibra</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-primary-foreground leading-[1.1] mb-6">
+              A Internet Fibra Óptica Mais Estável da Região
             </h1>
 
-            <p className="text-lg md:text-xl text-primary-foreground/80 mb-8 max-w-xl mx-auto lg:mx-0">
-              Internet ultrarrápida para sua casa ou empresa. Estabilidade, baixa latência e suporte 24h. Experimente a diferença da Octorlink!
+            <p className="text-lg md:text-xl text-primary-foreground/80 mb-10 max-w-xl leading-relaxed">
+              Velocidade de verdade, Wi-Fi de última geração, suporte técnico local e planos sob medida para sua casa ou empresa.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button variant="hero" size="xl" className="group">
-                <Zap className="w-5 h-5" />
-                Ver Planos
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="heroOutline" size="xl">
-                Falar com Consultor
-              </Button>
-            </div>
+            <Button 
+              variant="cta" 
+              size="xl" 
+              className="group text-base md:text-lg px-8 md:px-12"
+            >
+              <MessageCircle className="w-5 h-5" />
+              Falar com um consultor agora!
+            </Button>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-secondary/20">
-              <div className="text-center lg:text-left">
-                <p className="text-3xl md:text-4xl font-bold text-secondary">+10k</p>
-                <p className="text-primary-foreground/70 text-sm">Clientes Satisfeitos</p>
+            {/* Trust badges */}
+            <div className="flex flex-wrap items-center gap-6 mt-12 pt-8 border-t border-primary-foreground/10">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-full bg-secondary/30 flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-sm">99%</span>
+                </div>
+                <span className="text-primary-foreground/70 text-sm">Uptime</span>
               </div>
-              <div className="text-center lg:text-left">
-                <p className="text-3xl md:text-4xl font-bold text-secondary">99.9%</p>
-                <p className="text-primary-foreground/70 text-sm">Uptime Garantido</p>
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-full bg-secondary/30 flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-sm">24h</span>
+                </div>
+                <span className="text-primary-foreground/70 text-sm">Suporte</span>
               </div>
-              <div className="text-center lg:text-left">
-                <p className="text-3xl md:text-4xl font-bold text-secondary">24/7</p>
-                <p className="text-primary-foreground/70 text-sm">Suporte Técnico</p>
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-full bg-secondary/30 flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-sm">0</span>
+                </div>
+                <span className="text-primary-foreground/70 text-sm">Franquia</span>
               </div>
             </div>
           </div>
 
-          {/* Mascot */}
-          <div className="flex justify-center lg:justify-end animate-slide-in-right" style={{ animationDelay: '0.3s' }}>
+          {/* Character - Right Side */}
+          <div className="flex justify-center lg:justify-end order-1 lg:order-2 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <div className="relative">
-              <div className="absolute inset-0 bg-secondary/30 rounded-full blur-3xl scale-75" />
+              {/* Glow effect behind character */}
+              <div className="absolute inset-0 bg-secondary/20 rounded-full blur-3xl scale-90 translate-y-10" />
               <img
-                src={octopusMascot}
-                alt="Polvo Octorlink"
-                className="relative w-full max-w-md lg:max-w-lg xl:max-w-xl animate-float drop-shadow-2xl"
+                src={heroCharacter}
+                alt="Atendente Octorlink"
+                className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl drop-shadow-2xl"
               />
             </div>
           </div>
@@ -76,9 +83,9 @@ const Hero = () => {
 
       {/* Bottom wave */}
       <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+        <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
           <path
-            d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+            d="M0 100L48 91.7C96 83.3 192 66.7 288 58.3C384 50 480 50 576 54.2C672 58.3 768 66.7 864 70.8C960 75 1056 75 1152 70.8C1248 66.7 1344 58.3 1392 54.2L1440 50V100H1392C1344 100 1248 100 1152 100C1056 100 960 100 864 100C768 100 672 100 576 100C480 100 384 100 288 100C192 100 96 100 48 100H0Z"
             fill="hsl(var(--background))"
           />
         </svg>
