@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import StatsCounter from "@/components/StatsCounter";
 import Plans from "@/components/Plans";
+import ComboBuilder from "@/components/ComboBuilder";
 import Benefits from "@/components/Benefits";
 import Comparison from "@/components/Comparison";
 import Testimonials from "@/components/Testimonials";
@@ -18,6 +19,7 @@ const Index = () => {
         <Hero />
         <StatsCounter />
         <Plans />
+        <ComboBuilder />
         <Benefits />
         <Comparison />
         <Testimonials />
