@@ -49,11 +49,14 @@ const Comparison = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-4">
-            Veja a Diferença
+          <span className="inline-block bg-secondary/10 text-secondary font-semibold px-4 py-2 rounded-full text-sm mb-4">
+            Comparativo
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            Por que escolher <span className="text-gradient">Fibra Óptica</span>?
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Comparação transparente de recursos
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Veja a diferença entre a fibra óptica e outras tecnologias disponíveis no mercado.
           </p>
         </div>
 
