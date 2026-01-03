@@ -3,39 +3,56 @@ import { Check, Zap, Star } from "lucide-react";
 
 const plans = [
   {
-    name: "Start",
-    speed: "200",
-    price: "79,90",
+    name: "Essencial",
+    speed: "400",
+    price: "89,99",
     features: [
-      "200 Mega de Download",
-      "100 Mega de Upload",
+      "400 Mega de Download",
+      "200 Mega de Upload",
       "Wi-Fi Grátis",
       "Instalação Grátis",
       "Suporte 24h",
     ],
     popular: false,
+    isConsulta: false,
   },
   {
     name: "Turbo",
-    speed: "400",
-    price: "99,90",
-    features: [
-      "400 Mega de Download",
-      "200 Mega de Upload",
-      "Wi-Fi Dual Band Grátis",
-      "Instalação Grátis",
-      "Suporte 24h Prioritário",
-      "IP Fixo Opcional",
-    ],
-    popular: true,
-  },
-  {
-    name: "Ultra",
     speed: "600",
-    price: "129,90",
+    price: "99,99",
     features: [
       "600 Mega de Download",
       "300 Mega de Upload",
+      "Wi-Fi Dual Band Grátis",
+      "Instalação Grátis",
+      "Suporte 24h Prioritário",
+    ],
+    popular: true,
+    isConsulta: false,
+  },
+  {
+    name: "Ultra",
+    speed: "800",
+    price: "115,99",
+    features: [
+      "800 Mega de Download",
+      "400 Mega de Upload",
+      "Wi-Fi Dual Band Grátis",
+      "Instalação Grátis",
+      "Suporte 24h VIP",
+      "IP Fixo Opcional",
+    ],
+    popular: false,
+    isConsulta: false,
+  },
+  {
+    name: "Giga",
+    speed: "1",
+    speedUnit: "GB",
+    price: null,
+    features: [
+      "1 Giga de Download",
+      "500 Mega de Upload",
       "Wi-Fi Mesh Grátis",
       "Instalação Expressa Grátis",
       "Suporte 24h VIP",
@@ -43,6 +60,7 @@ const plans = [
       "Sem Limite de Dados",
     ],
     popular: false,
+    isConsulta: true,
   },
 ];
 
@@ -64,7 +82,7 @@ const Plans = () => {
         </div>
 
         {/* Plans Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <div
               key={plan.name}
@@ -91,19 +109,27 @@ const Plans = () => {
                     {plan.speed}
                   </span>
                   <span className={`text-xl font-semibold ${plan.popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                    Mega
+                    {plan.speedUnit || "Mega"}
                   </span>
                 </div>
                 <div className="mt-4">
-                  <span className={`text-sm ${plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-                    R$
-                  </span>
-                  <span className={`text-3xl font-bold ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
-                    {plan.price}
-                  </span>
-                  <span className={`text-sm ${plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-                    /mês
-                  </span>
+                  {plan.isConsulta ? (
+                    <span className={`text-2xl font-bold ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
+                      Sob Consulta
+                    </span>
+                  ) : (
+                    <>
+                      <span className={`text-sm ${plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                        R$
+                      </span>
+                      <span className={`text-3xl font-bold ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
+                        {plan.price}
+                      </span>
+                      <span className={`text-sm ${plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                        /mês
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
 
