@@ -11,6 +11,12 @@ import facillitySaudeIcon from "@/assets/apps/facillity-saude.webp";
 import historiasMagicasIcon from "@/assets/apps/historias-magicas.webp";
 import deezerIcon from "@/assets/apps/deezer.webp";
 import hboMaxIcon from "@/assets/apps/hbo-max.webp";
+import kiddlePassIcon from "@/assets/apps/kiddle-pass.webp";
+import viaLivrosIcon from "@/assets/apps/via-livros.webp";
+import premiereIcon from "@/assets/apps/premiere.webp";
+import playTvIcon from "@/assets/apps/play-tv.webp";
+import ubookIcon from "@/assets/apps/ubook.webp";
+import mundoQuadrinhosIcon from "@/assets/apps/mundo-quadrinhos.webp";
 
 const appIcons = {
   biblioteca: { src: bibliotecaIcon, name: "Biblioteca Livre" },
@@ -22,6 +28,12 @@ const appIcons = {
   historiasMagicas: { src: historiasMagicasIcon, name: "Histórias Mágicas" },
   deezer: { src: deezerIcon, name: "Deezer" },
   hboMax: { src: hboMaxIcon, name: "HBO Max" },
+  kiddlePass: { src: kiddlePassIcon, name: "Kiddle Pass" },
+  viaLivros: { src: viaLivrosIcon, name: "Via Livros" },
+  premiere: { src: premiereIcon, name: "Premiere" },
+  playTv: { src: playTvIcon, name: "Play TV" },
+  ubook: { src: ubookIcon, name: "Ubook" },
+  mundoQuadrinhos: { src: mundoQuadrinhosIcon, name: "Mundo dos Quadrinhos" },
 };
 
 const plans = [
@@ -36,7 +48,7 @@ const plans = [
       "Instalação Grátis",
       "Suporte 24h",
     ],
-    apps: ["biblioteca", "centralRadio", "historiasMagicas"],
+    apps: ["biblioteca", "centralRadio", "historiasMagicas", "kiddlePass"],
     popular: false,
     isConsulta: false,
   },
@@ -51,7 +63,7 @@ const plans = [
       "Instalação Grátis",
       "Suporte 24h Prioritário",
     ],
-    apps: ["biblioteca", "centralRadio", "historiasMagicas", "facillityEducacao"],
+    apps: ["biblioteca", "centralRadio", "historiasMagicas", "kiddlePass", "facillityEducacao", "viaLivros", "ubook"],
     popular: true,
     isConsulta: false,
   },
@@ -67,7 +79,7 @@ const plans = [
       "Suporte 24h VIP",
       "IP Fixo Opcional",
     ],
-    apps: ["biblioteca", "centralRadio", "historiasMagicas", "facillityEducacao", "deezer"],
+    apps: ["biblioteca", "centralRadio", "historiasMagicas", "kiddlePass", "facillityEducacao", "viaLivros", "ubook", "deezer", "mundoQuadrinhos", "playTv"],
     popular: false,
     isConsulta: false,
   },
@@ -85,7 +97,7 @@ const plans = [
       "IP Fixo Incluso",
       "Sem Limite de Dados",
     ],
-    apps: ["hboMax", "facillityPlayTv", "deezer", "biblioteca", "centralRadio", "facillitySaude", "casaConectada"],
+    apps: ["hboMax", "premiere", "facillityPlayTv", "playTv", "deezer", "ubook", "biblioteca", "viaLivros", "centralRadio", "facillitySaude", "casaConectada", "mundoQuadrinhos", "kiddlePass", "historiasMagicas", "facillityEducacao"],
     popular: false,
     isConsulta: true,
   },
