@@ -15,24 +15,16 @@ const Hero = () => {
         <div className="absolute -bottom-20 right-1/4 w-72 h-72 md:w-[400px] md:h-[400px] bg-secondary/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
-      {/* Decorative lines */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
-        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-foreground to-transparent" />
-        <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-foreground to-transparent" />
-      </div>
-
-      <div className="container mx-auto relative z-10 pt-20 md:pt-28 pb-16 px-4 min-h-screen flex items-center">
+      <div className="container mx-auto relative z-10 pt-20 md:pt-28 pb-0 px-4 min-h-screen flex flex-col justify-center">
         <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
           
-          {/* Mascot - Mobile: Top, Desktop: Right */}
-          <div className="lg:hidden w-full flex justify-center animate-fade-in">
-            <div className="relative w-40 h-40 overflow-hidden">
-              <img 
-                src={mascotWoman} 
-                alt="Atendente Octorlink" 
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-auto h-[200%] object-cover object-top drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
-              />
-            </div>
+          {/* Mascot - Mobile: Top */}
+          <div className="lg:hidden w-full flex justify-center">
+            <img 
+              src={mascotWoman} 
+              alt="Atendente Octorlink" 
+              className="w-44 h-auto drop-shadow-2xl"
+            />
           </div>
 
           {/* Content */}
@@ -78,21 +70,19 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Mascot - Desktop: Right side */}
-          <div className="hidden lg:flex flex-1 justify-center items-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <div className="relative w-80 xl:w-[400px] h-80 xl:h-[400px] overflow-hidden">
-              <img 
-                src={mascotWoman} 
-                alt="Atendente Octorlink" 
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-auto h-[200%] object-cover object-top drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
-              />
-            </div>
+          {/* Mascot - Desktop: Right side, emerging from bottom */}
+          <div className="hidden lg:block absolute bottom-0 right-[5%] xl:right-[10%]">
+            <img 
+              src={mascotWoman} 
+              alt="Atendente Octorlink" 
+              className="w-[350px] xl:w-[450px] h-auto drop-shadow-2xl translate-y-16"
+            />
           </div>
         </div>
       </div>
 
       {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute bottom-0 left-0 right-0 z-20">
         <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
           <path
             d="M0 80L60 73.3C120 66.7 240 53.3 360 46.7C480 40 600 40 720 43.3C840 46.7 960 53.3 1080 56.7C1200 60 1320 60 1380 60L1440 60V80H1380C1320 80 1200 80 1080 80C960 80 840 80 720 80C600 80 480 80 360 80C240 80 120 80 60 80H0Z"
