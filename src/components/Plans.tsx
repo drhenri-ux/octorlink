@@ -1,6 +1,29 @@
 import { Button } from "@/components/ui/button";
 import { Check, Zap, Star } from "lucide-react";
 
+// Import app icons
+import bibliotecaIcon from "@/assets/apps/biblioteca.webp";
+import casaConectadaIcon from "@/assets/apps/casa-conectada.webp";
+import centralRadioIcon from "@/assets/apps/central-radio.webp";
+import facillityEducacaoIcon from "@/assets/apps/facillity-educacao.webp";
+import facillityPlayTvIcon from "@/assets/apps/facillity-play-tv.webp";
+import facillitySaudeIcon from "@/assets/apps/facillity-saude.webp";
+import historiasMagicasIcon from "@/assets/apps/historias-magicas.webp";
+import deezerIcon from "@/assets/apps/deezer.webp";
+import hboMaxIcon from "@/assets/apps/hbo-max.webp";
+
+const appIcons = {
+  biblioteca: { src: bibliotecaIcon, name: "Biblioteca Livre" },
+  casaConectada: { src: casaConectadaIcon, name: "Casa Conectada" },
+  centralRadio: { src: centralRadioIcon, name: "Central Rádio" },
+  facillityEducacao: { src: facillityEducacaoIcon, name: "Facillity Educação" },
+  facillityPlayTv: { src: facillityPlayTvIcon, name: "Facillity Play TV" },
+  facillitySaude: { src: facillitySaudeIcon, name: "Facillity Saúde" },
+  historiasMagicas: { src: historiasMagicasIcon, name: "Histórias Mágicas" },
+  deezer: { src: deezerIcon, name: "Deezer" },
+  hboMax: { src: hboMaxIcon, name: "HBO Max" },
+};
+
 const plans = [
   {
     name: "Essencial",
@@ -13,6 +36,7 @@ const plans = [
       "Instalação Grátis",
       "Suporte 24h",
     ],
+    apps: ["biblioteca", "centralRadio", "historiasMagicas"],
     popular: false,
     isConsulta: false,
   },
@@ -27,6 +51,7 @@ const plans = [
       "Instalação Grátis",
       "Suporte 24h Prioritário",
     ],
+    apps: ["biblioteca", "centralRadio", "historiasMagicas", "facillityEducacao"],
     popular: true,
     isConsulta: false,
   },
@@ -42,6 +67,7 @@ const plans = [
       "Suporte 24h VIP",
       "IP Fixo Opcional",
     ],
+    apps: ["biblioteca", "centralRadio", "historiasMagicas", "facillityEducacao", "deezer"],
     popular: false,
     isConsulta: false,
   },
@@ -59,6 +85,7 @@ const plans = [
       "IP Fixo Incluso",
       "Sem Limite de Dados",
     ],
+    apps: ["hboMax", "facillityPlayTv", "deezer", "biblioteca", "centralRadio", "facillitySaude", "casaConectada"],
     popular: false,
     isConsulta: true,
   },
@@ -82,11 +109,11 @@ const Plans = () => {
         </div>
 
         {/* Plans Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <div
               key={plan.name}
-              className={`relative rounded-3xl p-8 transition-all duration-500 hover:scale-105 animate-scale-in ${
+              className={`relative rounded-3xl p-8 transition-all duration-500 hover:scale-105 animate-scale-in flex flex-col ${
                 plan.popular
                   ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-glow"
                   : "bg-card border border-border shadow-card"
@@ -100,7 +127,7 @@ const Plans = () => {
                 </div>
               )}
 
-              <div className="text-center mb-8">
+              <div className="text-center mb-6">
                 <h3 className={`text-xl font-bold mb-2 ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
                   {plan.name}
                 </h3>
@@ -133,10 +160,10 @@ const Plans = () => {
                 </div>
               </div>
 
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-6">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-3">
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
                       plan.popular ? "bg-primary-foreground/20" : "bg-secondary/20"
                     }`}>
                       <Check className={`w-3 h-3 ${plan.popular ? "text-primary-foreground" : "text-secondary"}`} />
@@ -147,6 +174,27 @@ const Plans = () => {
                   </li>
                 ))}
               </ul>
+
+              {/* Apps Section */}
+              <div className="mb-6 mt-auto">
+                <p className={`text-sm font-semibold mb-3 ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
+                  Aplicativos
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {plan.apps.map((appKey) => {
+                    const app = appIcons[appKey as keyof typeof appIcons];
+                    return (
+                      <img
+                        key={appKey}
+                        src={app.src}
+                        alt={app.name}
+                        title={app.name}
+                        className="w-10 h-10 rounded-lg object-cover shadow-sm"
+                      />
+                    );
+                  })}
+                </div>
+              </div>
 
               <Button
                 variant={plan.popular ? "heroOutline" : "gradient"}
