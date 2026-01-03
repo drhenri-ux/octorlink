@@ -70,12 +70,12 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Mascot - Desktop: Right side, emerging from bottom */}
-          <div className="hidden lg:block absolute bottom-0 right-[5%] xl:right-[10%]">
+          {/* Mascot - Desktop: Right side */}
+          <div className="hidden lg:flex flex-1 justify-center items-end">
             <img 
               src={mascotWoman} 
               alt="Atendente Octorlink" 
-              className="w-[350px] xl:w-[450px] h-auto drop-shadow-2xl translate-y-16"
+              className="w-[320px] xl:w-[380px] h-auto drop-shadow-2xl"
             />
           </div>
         </div>
