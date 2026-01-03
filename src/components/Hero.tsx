@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Wifi, MessageCircle, Zap, Shield, Clock } from "lucide-react";
+import { Wifi, MessageCircle } from "lucide-react";
 import mascotWoman from "@/assets/mascot-woman.png";
 
 const Hero = () => {
@@ -21,16 +21,18 @@ const Hero = () => {
         <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-foreground to-transparent" />
       </div>
 
-      <div className="container mx-auto relative z-10 pt-20 md:pt-28 pb-16 px-4 min-h-screen">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+      <div className="container mx-auto relative z-10 pt-20 md:pt-28 pb-16 px-4 min-h-screen flex items-center">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-12">
           
           {/* Mascot - Mobile: Top, Desktop: Right */}
           <div className="lg:hidden w-full flex justify-center animate-fade-in">
-            <img 
-              src={mascotWoman} 
-              alt="Atendente Octorlink" 
-              className="w-48 h-auto drop-shadow-2xl"
-            />
+            <div className="relative w-40 h-40 overflow-hidden">
+              <img 
+                src={mascotWoman} 
+                alt="Atendente Octorlink" 
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-auto h-[200%] object-cover object-top drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+              />
+            </div>
           </div>
 
           {/* Content */}
@@ -57,7 +59,7 @@ const Hero = () => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8 md:mb-10 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start animate-fade-in" style={{ animationDelay: '0.3s' }}>
               <Button 
                 variant="cta" 
                 size="lg" 
@@ -74,48 +76,17 @@ const Hero = () => {
                 Ver Planos
               </Button>
             </div>
-
-            {/* Features grid */}
-            <div className="grid grid-cols-3 gap-2 md:gap-4 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <div className="flex flex-col items-center gap-2 p-3 md:p-4 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 backdrop-blur-sm">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-secondary/20 flex items-center justify-center">
-                  <Zap className="w-4 h-4 md:w-5 md:h-5 text-secondary" />
-                </div>
-                <div className="text-center">
-                  <p className="text-lg md:text-2xl font-bold text-primary-foreground">600</p>
-                  <p className="text-primary-foreground/70 text-[10px] md:text-xs">Mega</p>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-2 p-3 md:p-4 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 backdrop-blur-sm">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-secondary/20 flex items-center justify-center">
-                  <Shield className="w-4 h-4 md:w-5 md:h-5 text-secondary" />
-                </div>
-                <div className="text-center">
-                  <p className="text-lg md:text-2xl font-bold text-primary-foreground">99.9%</p>
-                  <p className="text-primary-foreground/70 text-[10px] md:text-xs">Uptime</p>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-2 p-3 md:p-4 rounded-xl bg-primary-foreground/5 border border-primary-foreground/10 backdrop-blur-sm">
-                <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-secondary/20 flex items-center justify-center">
-                  <Clock className="w-4 h-4 md:w-5 md:h-5 text-secondary" />
-                </div>
-                <div className="text-center">
-                  <p className="text-lg md:text-2xl font-bold text-primary-foreground">24/7</p>
-                  <p className="text-primary-foreground/70 text-[10px] md:text-xs">Suporte</p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Mascot - Desktop: Right side */}
-          <div className="hidden lg:flex flex-1 justify-center items-end animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            <img 
-              src={mascotWoman} 
-              alt="Atendente Octorlink" 
-              className="w-72 xl:w-96 h-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500"
-            />
+          <div className="hidden lg:flex flex-1 justify-center items-center animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <div className="relative w-80 xl:w-[400px] h-80 xl:h-[400px] overflow-hidden">
+              <img 
+                src={mascotWoman} 
+                alt="Atendente Octorlink" 
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-auto h-[200%] object-cover object-top drop-shadow-2xl animate-[float_3s_ease-in-out_infinite]"
+              />
+            </div>
           </div>
         </div>
       </div>
