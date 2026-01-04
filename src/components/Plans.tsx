@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check, Zap, Star } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
-// Import app icons
+// Import app icons for legacy support
 import bibliotecaIcon from "@/assets/apps/biblioteca.webp";
 import casaConectadaIcon from "@/assets/apps/casa-conectada.webp";
 import centralRadioIcon from "@/assets/apps/central-radio.webp";
@@ -18,92 +20,101 @@ import playTvIcon from "@/assets/apps/play-tv.webp";
 import ubookIcon from "@/assets/apps/ubook.webp";
 import mundoQuadrinhosIcon from "@/assets/apps/mundo-quadrinhos.webp";
 
-const appIcons = {
-  biblioteca: { src: bibliotecaIcon, name: "Biblioteca Livre" },
-  casaConectada: { src: casaConectadaIcon, name: "Casa Conectada" },
-  centralRadio: { src: centralRadioIcon, name: "Central Rádio" },
-  facillityEducacao: { src: facillityEducacaoIcon, name: "Facillity Educação" },
-  facillityPlayTv: { src: facillityPlayTvIcon, name: "Facillity Play TV" },
-  facillitySaude: { src: facillitySaudeIcon, name: "Facillity Saúde" },
-  historiasMagicas: { src: historiasMagicasIcon, name: "Histórias Mágicas" },
-  deezer: { src: deezerIcon, name: "Deezer" },
-  hboMax: { src: hboMaxIcon, name: "HBO Max" },
-  kiddlePass: { src: kiddlePassIcon, name: "Kiddle Pass" },
-  viaLivros: { src: viaLivrosIcon, name: "Via Livros" },
-  premiere: { src: premiereIcon, name: "Premiere" },
-  playTv: { src: playTvIcon, name: "Play TV" },
-  ubook: { src: ubookIcon, name: "Ubook" },
-  mundoQuadrinhos: { src: mundoQuadrinhosIcon, name: "Mundo dos Quadrinhos" },
+// Legacy icon mapping for existing apps
+const legacyIcons: Record<string, string> = {
+  biblioteca: bibliotecaIcon,
+  casaConectada: casaConectadaIcon,
+  centralRadio: centralRadioIcon,
+  facillityEducacao: facillityEducacaoIcon,
+  facillityPlayTv: facillityPlayTvIcon,
+  facillitySaude: facillitySaudeIcon,
+  historiasMagicas: historiasMagicasIcon,
+  deezer: deezerIcon,
+  hboMax: hboMaxIcon,
+  kiddlePass: kiddlePassIcon,
+  viaLivros: viaLivrosIcon,
+  premiere: premiereIcon,
+  playTv: playTvIcon,
+  ubook: ubookIcon,
+  mundoQuadrinhos: mundoQuadrinhosIcon,
 };
 
-const plans = [
-  {
-    name: "Essencial",
-    speed: "400",
-    price: "89,99",
-    features: [
-      "400 Mega de Download",
-      "200 Mega de Upload",
-      "Wi-Fi Grátis",
-      "Instalação Grátis",
-      "Suporte 24h",
-    ],
-    apps: ["biblioteca", "centralRadio", "historiasMagicas", "kiddlePass"],
-    popular: false,
-    isConsulta: false,
-  },
-  {
-    name: "Turbo",
-    speed: "600",
-    price: "99,99",
-    features: [
-      "600 Mega de Download",
-      "300 Mega de Upload",
-      "Wi-Fi Dual Band Grátis",
-      "Instalação Grátis",
-      "Suporte 24h Prioritário",
-    ],
-    apps: ["biblioteca", "centralRadio", "historiasMagicas", "kiddlePass", "facillityEducacao", "viaLivros", "ubook"],
-    popular: true,
-    isConsulta: false,
-  },
-  {
-    name: "Ultra",
-    speed: "800",
-    price: "115,99",
-    features: [
-      "800 Mega de Download",
-      "400 Mega de Upload",
-      "Wi-Fi Dual Band Grátis",
-      "Instalação Grátis",
-      "Suporte 24h VIP",
-      "IP Fixo Opcional",
-    ],
-    apps: ["biblioteca", "centralRadio", "historiasMagicas", "kiddlePass", "facillityEducacao", "viaLivros", "ubook", "deezer", "mundoQuadrinhos", "playTv"],
-    popular: false,
-    isConsulta: false,
-  },
-  {
-    name: "Giga",
-    speed: "1",
-    speedUnit: "GB",
-    price: null,
-    features: [
-      "1 Giga de Download",
-      "500 Mega de Upload",
-      "Wi-Fi Mesh Grátis",
-      "Instalação Expressa Grátis",
-      "Suporte 24h VIP",
-      "IP Fixo Incluso",
-      "Sem Limite de Dados",
-    ],
-    apps: ["hboMax", "premiere", "facillityPlayTv", "playTv", "deezer", "ubook", "biblioteca", "viaLivros", "centralRadio", "facillitySaude", "casaConectada", "mundoQuadrinhos", "kiddlePass", "historiasMagicas", "facillityEducacao"],
-    popular: false,
-    isConsulta: true,
-  },
-];
+interface App {
+  id: string;
+  name: string;
+  icon_url: string | null;
+}
+
+interface Plan {
+  id: string;
+  name: string;
+  speed: string;
+  price: number | null;
+  is_consultation: boolean;
+  features: string[];
+  is_popular: boolean;
+  sort_order: number;
+}
+
+interface PlanWithApps extends Plan {
+  apps: App[];
+}
 
 const Plans = () => {
+  const [plans, setPlans] = useState<PlanWithApps[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const [plansRes, appsRes, planAppsRes] = await Promise.all([
+          supabase.from("plans").select("*").order("sort_order"),
+          supabase.from("apps").select("*"),
+          supabase.from("plan_apps").select("*"),
+        ]);
+
+        if (plansRes.data && appsRes.data && planAppsRes.data) {
+          const plansWithApps = plansRes.data.map((plan) => {
+            const planAppIds = planAppsRes.data
+              .filter((pa) => pa.plan_id === plan.id)
+              .map((pa) => pa.app_id);
+            const apps = appsRes.data.filter((app) => planAppIds.includes(app.id));
+            return { ...plan, apps };
+          });
+          setPlans(plansWithApps);
+        }
+      } catch (error) {
+        console.error("Error fetching plans:", error);
+      }
+      setLoading(false);
+    };
+
+    fetchPlans();
+  }, []);
+
+  const getAppIcon = (app: App): string => {
+    // If icon_url is a full URL (from storage), use it
+    if (app.icon_url?.startsWith("http")) {
+      return app.icon_url;
+    }
+    // If icon_url is a legacy key, use the legacy icon
+    if (app.icon_url && legacyIcons[app.icon_url]) {
+      return legacyIcons[app.icon_url];
+    }
+    // Fallback placeholder
+    return "/placeholder.svg";
+  };
+
+  if (loading) {
+    return (
+      <section id="planos" className="py-20 lg:py-32 bg-background">
+        <div className="container mx-auto px-4 flex justify-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="planos" className="py-20 lg:py-32 bg-background">
       <div className="container mx-auto px-4">
@@ -124,15 +135,15 @@ const Plans = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <div
-              key={plan.name}
+              key={plan.id}
               className={`relative rounded-3xl p-8 transition-all duration-500 hover:scale-105 animate-scale-in flex flex-col ${
-                plan.popular
+                plan.is_popular
                   ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-glow"
                   : "bg-card border border-border shadow-card"
               }`}
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              {plan.popular && (
+              {plan.is_popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
                   <Star className="w-4 h-4 fill-current" />
                   Mais Popular
@@ -140,31 +151,31 @@ const Plans = () => {
               )}
 
               <div className="text-center mb-6">
-                <h3 className={`text-xl font-bold mb-2 ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
+                <h3 className={`text-xl font-bold mb-2 ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
                   {plan.name}
                 </h3>
                 <div className="flex items-baseline justify-center gap-1">
-                  <span className={`text-5xl md:text-6xl font-extrabold ${plan.popular ? "text-primary-foreground" : "text-gradient"}`}>
-                    {plan.speed}
+                  <span className={`text-5xl md:text-6xl font-extrabold ${plan.is_popular ? "text-primary-foreground" : "text-gradient"}`}>
+                    {plan.speed.includes("GB") ? plan.speed.replace(" GB", "") : plan.speed}
                   </span>
-                  <span className={`text-xl font-semibold ${plan.popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                    {plan.speedUnit || "Mega"}
+                  <span className={`text-xl font-semibold ${plan.is_popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+                    {plan.speed.includes("GB") ? "GB" : "Mega"}
                   </span>
                 </div>
                 <div className="mt-4">
-                  {plan.isConsulta ? (
-                    <span className={`text-2xl font-bold ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
+                  {plan.is_consultation ? (
+                    <span className={`text-2xl font-bold ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
                       Sob Consulta
                     </span>
                   ) : (
                     <>
-                      <span className={`text-sm ${plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                      <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                         R$
                       </span>
-                      <span className={`text-3xl font-bold ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
-                        {plan.price}
+                      <span className={`text-3xl font-bold ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
+                        {plan.price?.toFixed(2).replace(".", ",")}
                       </span>
-                      <span className={`text-sm ${plan.popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                      <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
                         /mês
                       </span>
                     </>
@@ -176,11 +187,11 @@ const Plans = () => {
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-3">
                     <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      plan.popular ? "bg-primary-foreground/20" : "bg-secondary/20"
+                      plan.is_popular ? "bg-primary-foreground/20" : "bg-secondary/20"
                     }`}>
-                      <Check className={`w-3 h-3 ${plan.popular ? "text-primary-foreground" : "text-secondary"}`} />
+                      <Check className={`w-3 h-3 ${plan.is_popular ? "text-primary-foreground" : "text-secondary"}`} />
                     </div>
-                    <span className={`text-sm ${plan.popular ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
+                    <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
                       {feature}
                     </span>
                   </li>
@@ -188,30 +199,29 @@ const Plans = () => {
               </ul>
 
               {/* Apps Section */}
-              <div className="mb-6 mt-auto">
-                <p className={`text-sm font-semibold mb-3 ${plan.popular ? "text-primary-foreground" : "text-foreground"}`}>
-                  Aplicativos
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {plan.apps.map((appKey) => {
-                    const app = appIcons[appKey as keyof typeof appIcons];
-                    return (
+              {plan.apps.length > 0 && (
+                <div className="mb-6 mt-auto">
+                  <p className={`text-sm font-semibold mb-3 ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
+                    Aplicativos
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {plan.apps.map((app) => (
                       <img
-                        key={appKey}
-                        src={app.src}
+                        key={app.id}
+                        src={getAppIcon(app)}
                         alt={app.name}
                         title={app.name}
                         className="w-10 h-10 rounded-lg object-cover shadow-sm"
                       />
-                    );
-                  })}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <Button
-                variant={plan.popular ? "heroOutline" : "gradient"}
+                variant={plan.is_popular ? "heroOutline" : "gradient"}
                 size="lg"
-                className="w-full"
+                className="w-full mt-auto"
               >
                 <Zap className="w-4 h-4" />
                 Assinar Agora
