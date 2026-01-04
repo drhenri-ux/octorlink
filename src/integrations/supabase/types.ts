@@ -14,7 +14,99 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      apps: {
+        Row: {
+          created_at: string
+          icon_url: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          icon_url?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          icon_url?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      plan_apps: {
+        Row: {
+          app_id: string
+          id: string
+          plan_id: string
+        }
+        Insert: {
+          app_id: string
+          id?: string
+          plan_id: string
+        }
+        Update: {
+          app_id?: string
+          id?: string
+          plan_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "plan_apps_app_id_fkey"
+            columns: ["app_id"]
+            isOneToOne: false
+            referencedRelation: "apps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "plan_apps_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      plans: {
+        Row: {
+          created_at: string
+          features: string[]
+          id: string
+          is_consultation: boolean
+          is_popular: boolean
+          name: string
+          price: number | null
+          sort_order: number
+          speed: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          features?: string[]
+          id?: string
+          is_consultation?: boolean
+          is_popular?: boolean
+          name: string
+          price?: number | null
+          sort_order?: number
+          speed: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          features?: string[]
+          id?: string
+          is_consultation?: boolean
+          is_popular?: boolean
+          name?: string
+          price?: number | null
+          sort_order?: number
+          speed?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
