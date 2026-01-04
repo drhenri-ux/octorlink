@@ -6,15 +6,14 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock, Mail, Eye, EyeOff, UserPlus } from "lucide-react";
-import logoWhite from "@/assets/logo-white.png";
+import { Lock, Mail, Eye, EyeOff } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isSetupMode, setIsSetupMode] = useState(false);
   const [hasAdmin, setHasAdmin] = useState<boolean | null>(null);
   const { signIn, user, loading } = useAuth();
   const navigate = useNavigate();
@@ -54,49 +53,6 @@ const AdminLogin = () => {
     setIsLoading(false);
   };
 
-  const handleSetup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/admin`,
-      },
-    });
-
-    if (error) {
-      if (error.message.includes("already registered")) {
-        toast({
-          title: "Conta já existe",
-          description: "Use o formulário de login para entrar.",
-          variant: "destructive",
-        });
-        setIsSetupMode(false);
-      } else {
-        toast({
-          title: "Erro ao criar conta",
-          description: error.message,
-          variant: "destructive",
-        });
-      }
-    } else {
-      toast({
-        title: "Conta criada!",
-        description: "Você já pode fazer login.",
-      });
-      setIsSetupMode(false);
-      // Auto login
-      const { error: loginError } = await signIn(email, password);
-      if (!loginError) {
-        navigate("/admin");
-      }
-    }
-
-    setIsLoading(false);
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-primary flex items-center justify-center">
@@ -110,16 +66,16 @@ const AdminLogin = () => {
       <div className="w-full max-w-md">
         <div className="bg-card rounded-3xl shadow-2xl p-8 animate-fade-in">
           <div className="text-center mb-8">
-            <img src={logoWhite} alt="Octorlink" className="h-12 mx-auto mb-6 invert" />
+            <img src={logo} alt="Octorlink" className="h-12 mx-auto mb-6" />
             <h1 className="text-2xl font-bold text-foreground mb-2">
-              {isSetupMode ? "Criar Conta Admin" : "Área Administrativa"}
+              Área Administrativa
             </h1>
             <p className="text-muted-foreground">
-              {isSetupMode ? "Configure sua conta de administrador" : "Entre com suas credenciais"}
+              Entre com suas credenciais
             </p>
           </div>
 
-          <form onSubmit={isSetupMode ? handleSetup : handleLogin} className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-foreground">Email</Label>
               <div className="relative">
@@ -167,29 +123,14 @@ const AdminLogin = () => {
               className="w-full"
               disabled={isLoading}
             >
-              {isLoading ? (
-                isSetupMode ? "Criando..." : "Entrando..."
-              ) : (
-                <>
-                  {isSetupMode && <UserPlus className="w-4 h-4 mr-2" />}
-                  {isSetupMode ? "Criar Conta" : "Entrar"}
-                </>
-              )}
+              {isLoading ? "Entrando..." : "Entrar"}
             </Button>
           </form>
 
-          <div className="mt-6 text-center space-y-3">
-            <button
-              onClick={() => setIsSetupMode(!isSetupMode)}
-              className="text-sm text-primary hover:underline"
-            >
-              {isSetupMode ? "Já tenho uma conta" : "Primeira vez? Criar conta admin"}
-            </button>
-            <div>
-              <a href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                ← Voltar ao site
-              </a>
-            </div>
+          <div className="mt-6 text-center">
+            <a href="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+              ← Voltar ao site
+            </a>
           </div>
         </div>
       </div>
