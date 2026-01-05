@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check, Zap, Star } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import LeadCaptureForm from "./LeadCaptureForm";
 
 // Import app icons for legacy support
 import bibliotecaIcon from "@/assets/apps/biblioteca.webp";
@@ -63,6 +64,13 @@ interface PlanWithApps extends Plan {
 const Plans = () => {
   const [plans, setPlans] = useState<PlanWithApps[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showLeadForm, setShowLeadForm] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState("");
+
+  const handleAssinar = (planName: string) => {
+    setSelectedPlan(planName);
+    setShowLeadForm(true);
+  };
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -222,6 +230,7 @@ const Plans = () => {
                 variant={plan.is_popular ? "heroOutline" : "gradient"}
                 size="lg"
                 className="w-full mt-auto"
+                onClick={() => handleAssinar(`${plan.name} - ${plan.speed}`)}
               >
                 <Zap className="w-4 h-4" />
                 Assinar Agora
@@ -230,6 +239,12 @@ const Plans = () => {
           ))}
         </div>
       </div>
+
+      <LeadCaptureForm
+        isOpen={showLeadForm}
+        onClose={() => setShowLeadForm(false)}
+        planName={selectedPlan}
+      />
     </section>
   );
 };
