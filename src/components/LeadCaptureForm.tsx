@@ -8,16 +8,6 @@ import { Check, ChevronLeft, ChevronRight, Loader2, CheckCircle2 } from "lucide-
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
-// Import app icons
-import deezer from "@/assets/apps/deezer.webp";
-import hbomax from "@/assets/apps/hbomax.webp";
-import disneyplus from "@/assets/apps/disneyplus.png";
-import premiere from "@/assets/apps/premiere.webp";
-import sky from "@/assets/apps/sky.png";
-import playkids from "@/assets/apps/playkids.png";
-import ubook from "@/assets/apps/ubook.webp";
-import nba from "@/assets/apps/nba.png";
-
 interface LeadCaptureFormProps {
   isOpen: boolean;
   onClose: () => void;
@@ -25,29 +15,20 @@ interface LeadCaptureFormProps {
   isCombo?: boolean;
 }
 
-interface App {
+interface AdditionalService {
   id: string;
   name: string;
+  description: string | null;
+  price: number | null;
   icon_url: string | null;
 }
-
-const iconMap: Record<string, string> = {
-  "deezer.webp": deezer,
-  "hbomax.webp": hbomax,
-  "disneyplus.png": disneyplus,
-  "premiere.webp": premiere,
-  "sky.png": sky,
-  "playkids.png": playkids,
-  "ubook.webp": ubook,
-  "nba.png": nba,
-};
 
 const LeadCaptureForm = ({ isOpen, onClose, planName, isCombo = false }: LeadCaptureFormProps) => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [apps, setApps] = useState<App[]>([]);
-  const [loadingApps, setLoadingApps] = useState(true);
+  const [services, setServices] = useState<AdditionalService[]>([]);
+  const [loadingServices, setLoadingServices] = useState(true);
   
   // Form state
   const [formData, setFormData] = useState({
@@ -73,22 +54,24 @@ const LeadCaptureForm = ({ isOpen, onClose, planName, isCombo = false }: LeadCap
     diaVencimento: "",
   });
 
-  // Fetch apps for step 3
+  // Fetch additional services for step 3
   useEffect(() => {
-    const fetchApps = async () => {
-      setLoadingApps(true);
-      const { data } = await supabase.from("apps").select("*");
-      if (data) setApps(data);
-      setLoadingApps(false);
+    const fetchServices = async () => {
+      setLoadingServices(true);
+      const { data } = await supabase
+        .from("additional_services")
+        .select("id, name, description, price, icon_url")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true });
+      if (data) setServices(data);
+      setLoadingServices(false);
     };
-    fetchApps();
+    fetchServices();
   }, []);
 
-  const getAppIconUrl = (iconUrl: string | null) => {
+  const getServiceIconUrl = (iconUrl: string | null) => {
     if (!iconUrl) return "/placeholder.svg";
-    if (iconUrl.startsWith("http")) return iconUrl;
-    if (iconMap[iconUrl]) return iconMap[iconUrl];
-    return `https://hzxsaalutzoozjngpdki.supabase.co/storage/v1/object/public/app-icons/${iconUrl}`;
+    return iconUrl;
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -389,31 +372,44 @@ const LeadCaptureForm = ({ isOpen, onClose, planName, isCombo = false }: LeadCap
                   <p className="text-muted-foreground text-sm mb-4">
                     Aproveite para adicionar serviços que vão melhorar sua experiência:
                   </p>
-                  {loadingApps ? (
+                  {loadingServices ? (
                     <div className="flex justify-center py-8">
                       <Loader2 className="w-6 h-6 animate-spin text-primary" />
                     </div>
+                  ) : services.length === 0 ? (
+                    <div className="text-center py-8 text-muted-foreground">
+                      Nenhum serviço adicional disponível no momento.
+                    </div>
                   ) : (
                     <div className="space-y-3 max-h-[300px] overflow-y-auto">
-                      {apps.map((app) => (
+                      {services.map((service) => (
                         <button
-                          key={app.id}
-                          onClick={() => toggleService(app.name)}
+                          key={service.id}
+                          onClick={() => toggleService(service.name)}
                           className={`w-full flex items-center justify-between p-3 rounded-lg border transition-all ${
-                            formData.servicosSelecionados.includes(app.name)
+                            formData.servicosSelecionados.includes(service.name)
                               ? "border-secondary bg-secondary/10"
                               : "border-border hover:border-secondary/50"
                           }`}
                         >
                           <div className="flex items-center gap-3">
-                            <img
-                              src={getAppIconUrl(app.icon_url)}
-                              alt={app.name}
-                              className="w-10 h-10 rounded-lg object-contain"
-                            />
-                            <span className="font-medium text-foreground">{app.name}</span>
+                            {service.icon_url && (
+                              <img
+                                src={getServiceIconUrl(service.icon_url)}
+                                alt={service.name}
+                                className="w-10 h-10 rounded-lg object-contain"
+                              />
+                            )}
+                            <div className="text-left">
+                              <span className="font-medium text-foreground block">{service.name}</span>
+                              {service.price && (
+                                <span className="text-xs text-muted-foreground">
+                                  +R$ {service.price.toFixed(2)}/mês
+                                </span>
+                              )}
+                            </div>
                           </div>
-                          {formData.servicosSelecionados.includes(app.name) && (
+                          {formData.servicosSelecionados.includes(service.name) && (
                             <Check className="w-5 h-5 text-secondary" />
                           )}
                         </button>

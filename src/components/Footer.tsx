@@ -1,4 +1,4 @@
-import { Instagram, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Instagram, Facebook, Phone, Mail, MapPin, Clock } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import TikTokIcon from "@/components/icons/TikTokIcon";
@@ -79,6 +79,14 @@ const Footer = () => {
                 className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-secondary transition-colors"
               >
                 <Instagram className="w-5 h-5 text-background" />
+              </a>
+              <a
+                href="https://www.facebook.com/octorlink"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-secondary transition-colors"
+              >
+                <Facebook className="w-5 h-5 text-background" />
               </a>
               <a
                 href="https://www.tiktok.com/@octorlink"

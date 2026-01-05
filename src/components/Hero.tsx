@@ -64,6 +64,12 @@ const Hero = () => {
                 variant="heroOutline" 
                 size="lg" 
                 className="text-sm md:text-base px-6 md:px-10 w-full sm:w-auto"
+                onClick={() => {
+                  const plansSection = document.getElementById("planos");
+                  if (plansSection) {
+                    plansSection.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
               >
                 Ver Planos
               </Button>
