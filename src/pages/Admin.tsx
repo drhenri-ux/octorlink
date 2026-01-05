@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LogOut, Package, Smartphone, Users } from "lucide-react";
+import { LogOut, Package, Smartphone, Users, Settings } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
 import PlansManager from "@/components/admin/PlansManager";
 import AppsManager from "@/components/admin/AppsManager";
 import LeadsManager from "@/components/admin/LeadsManager";
+import ServicesManager from "@/components/admin/ServicesManager";
 
 const Admin = () => {
   const { user, loading, signOut } = useAuth();
@@ -81,6 +82,10 @@ const Admin = () => {
               <Smartphone className="w-4 h-4" />
               Aplicativos
             </TabsTrigger>
+            <TabsTrigger value="services" className="gap-2">
+              <Settings className="w-4 h-4" />
+              Serviços
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="leads">
@@ -93,6 +98,10 @@ const Admin = () => {
 
           <TabsContent value="apps">
             <AppsManager />
+          </TabsContent>
+
+          <TabsContent value="services">
+            <ServicesManager />
           </TabsContent>
         </Tabs>
       </main>
