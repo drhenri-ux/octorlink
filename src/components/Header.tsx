@@ -13,10 +13,29 @@ const Header = () => {
     { label: "Contato", href: "#contato" },
   ];
 
+  const scrollToPlans = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const plansSection = document.getElementById("planos");
+    if (plansSection) {
+      plansSection.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMenuOpen(false);
+  };
+
+  const handleNavClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace("#", "");
+    const targetSection = document.getElementById(targetId);
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: "smooth" });
+    }
+    setIsMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-secondary/20">
       <div className="container mx-auto flex items-center justify-between py-3 md:py-4">
-        <a href="#inicio" className="flex items-center">
+        <a href="#inicio" className="flex items-center" onClick={(e) => handleNavClick(e, "#inicio")}>
           <img src={logoWhite} alt="Octorlink" className="h-8 md:h-10" />
         </a>
 
@@ -26,6 +45,7 @@ const Header = () => {
             <a
               key={link.label}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-300 font-medium text-sm"
             >
               {link.label}
@@ -39,7 +59,7 @@ const Header = () => {
             <User className="w-4 h-4 mr-2" />
             Área do Cliente
           </Button>
-          <Button variant="hero" size="default">
+          <Button variant="hero" size="default" onClick={scrollToPlans}>
             Assine Já
           </Button>
         </div>
@@ -63,7 +83,7 @@ const Header = () => {
                 key={link.label}
                 href={link.href}
                 className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors duration-300 font-medium py-3 px-4 rounded-lg"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, link.href)}
               >
                 {link.label}
               </a>
@@ -73,7 +93,7 @@ const Header = () => {
                 <User className="w-4 h-4 mr-2" />
                 Área do Cliente
               </Button>
-              <Button variant="hero" size="lg" className="w-full">
+              <Button variant="hero" size="lg" className="w-full" onClick={scrollToPlans}>
                 Assine Já
               </Button>
             </div>

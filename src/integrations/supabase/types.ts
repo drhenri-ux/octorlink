@@ -35,6 +35,78 @@ export type Database = {
         }
         Relationships: []
       }
+      leads: {
+        Row: {
+          bairro: string | null
+          cep: string | null
+          cidade: string | null
+          complemento: string | null
+          cpf_cnpj: string | null
+          created_at: string
+          data_nascimento: string | null
+          dia_vencimento: string | null
+          email: string | null
+          endereco: string | null
+          estado: string | null
+          id: string
+          nome_completo: string
+          nome_mae: string | null
+          numero: string | null
+          plano_selecionado: string | null
+          rg: string | null
+          servicos_adicionais: string[] | null
+          status: string
+          telefone: string
+          updated_at: string
+        }
+        Insert: {
+          bairro?: string | null
+          cep?: string | null
+          cidade?: string | null
+          complemento?: string | null
+          cpf_cnpj?: string | null
+          created_at?: string
+          data_nascimento?: string | null
+          dia_vencimento?: string | null
+          email?: string | null
+          endereco?: string | null
+          estado?: string | null
+          id?: string
+          nome_completo: string
+          nome_mae?: string | null
+          numero?: string | null
+          plano_selecionado?: string | null
+          rg?: string | null
+          servicos_adicionais?: string[] | null
+          status?: string
+          telefone: string
+          updated_at?: string
+        }
+        Update: {
+          bairro?: string | null
+          cep?: string | null
+          cidade?: string | null
+          complemento?: string | null
+          cpf_cnpj?: string | null
+          created_at?: string
+          data_nascimento?: string | null
+          dia_vencimento?: string | null
+          email?: string | null
+          endereco?: string | null
+          estado?: string | null
+          id?: string
+          nome_completo?: string
+          nome_mae?: string | null
+          numero?: string | null
+          plano_selecionado?: string | null
+          rg?: string | null
+          servicos_adicionais?: string[] | null
+          status?: string
+          telefone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       plan_apps: {
         Row: {
           app_id: string

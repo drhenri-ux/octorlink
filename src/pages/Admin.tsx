@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LogOut, Package, Smartphone } from "lucide-react";
+import { LogOut, Package, Smartphone, Users } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
 import PlansManager from "@/components/admin/PlansManager";
 import AppsManager from "@/components/admin/AppsManager";
+import LeadsManager from "@/components/admin/LeadsManager";
 
 const Admin = () => {
   const { user, loading, signOut } = useAuth();
@@ -66,8 +67,12 @@ const Admin = () => {
           <p className="text-muted-foreground">Gerencie os planos e aplicativos do seu site.</p>
         </div>
 
-        <Tabs defaultValue="plans" className="w-full">
+        <Tabs defaultValue="leads" className="w-full">
           <TabsList className="mb-8">
+            <TabsTrigger value="leads" className="gap-2">
+              <Users className="w-4 h-4" />
+              CRM
+            </TabsTrigger>
             <TabsTrigger value="plans" className="gap-2">
               <Package className="w-4 h-4" />
               Planos
@@ -77,6 +82,10 @@ const Admin = () => {
               Aplicativos
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="leads">
+            <LeadsManager />
+          </TabsContent>
 
           <TabsContent value="plans">
             <PlansManager />

@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import LeadCaptureForm from "./LeadCaptureForm";
 
 // Import app icons
 import skyIcon from "@/assets/apps/sky.png";
@@ -32,6 +33,7 @@ const ComboBuilder = () => {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [apps, setApps] = useState<App[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showLeadForm, setShowLeadForm] = useState(false);
 
   useEffect(() => {
     const fetchApps = async () => {
@@ -145,12 +147,19 @@ const ComboBuilder = () => {
             variant="default" 
             size="lg" 
             className="bg-card text-primary hover:bg-card/90 font-semibold px-8"
+            onClick={() => setShowLeadForm(true)}
           >
             <Zap className="w-4 h-4" />
             Montar Meu Combo Agora
           </Button>
         </div>
       </div>
+
+      <LeadCaptureForm
+        isOpen={showLeadForm}
+        onClose={() => setShowLeadForm(false)}
+        isCombo={true}
+      />
     </section>
   );
 };
