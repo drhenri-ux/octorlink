@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Plans from "@/components/Plans";
 import ComboBuilder from "@/components/ComboBuilder";
 import BusinessSolutions from "@/components/BusinessSolutions";
+import TechnicalDetails from "@/components/TechnicalDetails";
 import Benefits from "@/components/Benefits";
 import Comparison from "@/components/Comparison";
 import Testimonials from "@/components/Testimonials";
@@ -22,6 +23,7 @@ const Index = () => {
         <Plans />
         <ComboBuilder />
         <BusinessSolutions />
+        <TechnicalDetails />
         <Benefits />
         <Testimonials />
         <FAQ />
