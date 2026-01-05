@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const SupportCTA = () => {
   const handlePhone = () => {
@@ -45,7 +46,7 @@ const SupportCTA = () => {
               className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 min-w-[200px]"
               onClick={handleWhatsApp}
             >
-              <MessageCircle className="w-4 h-4" />
+              <WhatsAppIcon className="w-4 h-4" />
               WhatsApp
             </Button>
           </div>
