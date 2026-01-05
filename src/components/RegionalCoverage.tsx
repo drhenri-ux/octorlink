@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { MapPin, MessageCircle, Loader2 } from "lucide-react";
+import { MapPin, Loader2 } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const activeCities = [
   { name: "Eunápolis", active: true },
@@ -84,7 +85,7 @@ const RegionalCoverage = () => {
               className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8"
               onClick={handleWhatsApp}
             >
-              <MessageCircle className="w-4 h-4" />
+              <WhatsAppIcon className="w-4 h-4" />
               Verificar Cobertura
             </Button>
           </div>
