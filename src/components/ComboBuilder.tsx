@@ -41,16 +41,22 @@ const ComboBuilder = () => {
       if (iconUrl.startsWith("http")) {
         return iconUrl;
       }
+      // Check if it's a local asset reference
+      const localIcons: Record<string, string> = {
+        "sky.png": "/src/assets/apps/sky.png",
+        "deezer.png": "/src/assets/apps/deezer.png",
+        "disneyplus.png": "/src/assets/apps/disneyplus.png",
+        "hbomax.webp": "/src/assets/apps/hbomax.webp",
+        "nba.png": "/src/assets/apps/nba.png",
+        "playkids.png": "/src/assets/apps/playkids.png",
+        "exitlag.webp": "/src/assets/apps/exitlag.webp",
+      };
+      if (localIcons[iconUrl]) {
+        return localIcons[iconUrl];
+      }
       return `https://hzxsaalutzoozjngpdki.supabase.co/storage/v1/object/public/app-icons/${iconUrl}`;
     }
-    // Fallback to local assets
-    const localIcons: Record<string, string> = {
-      "Deezer": "/src/assets/apps/deezer.webp",
-      "HBO Max": "/src/assets/apps/hbo-max.webp",
-      "Premiere": "/src/assets/apps/premiere.webp",
-      "Play TV": "/src/assets/apps/play-tv.webp",
-    };
-    return localIcons[appName] || "";
+    return "";
   };
 
   return (
