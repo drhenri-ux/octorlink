@@ -9,7 +9,7 @@ import RegionalCoverage from "@/components/RegionalCoverage";
 import Benefits from "@/components/Benefits";
 import Comparison from "@/components/Comparison";
 import Testimonials from "@/components/Testimonials";
-import FAQ from "@/components/FAQ";
+import SupportCTA from "@/components/SupportCTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -28,7 +28,7 @@ const Index = () => {
         <RegionalCoverage />
         <Benefits />
         <Testimonials />
-        <FAQ />
+        <SupportCTA />
         <Contact />
       </main>
       <Footer />
