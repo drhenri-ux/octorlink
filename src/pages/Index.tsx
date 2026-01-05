@@ -5,6 +5,7 @@ import Plans from "@/components/Plans";
 import ComboBuilder from "@/components/ComboBuilder";
 import BusinessSolutions from "@/components/BusinessSolutions";
 import TechnicalDetails from "@/components/TechnicalDetails";
+import RegionalCoverage from "@/components/RegionalCoverage";
 import Benefits from "@/components/Benefits";
 import Comparison from "@/components/Comparison";
 import Testimonials from "@/components/Testimonials";
@@ -24,6 +25,7 @@ const Index = () => {
         <ComboBuilder />
         <BusinessSolutions />
         <TechnicalDetails />
+        <RegionalCoverage />
         <Benefits />
         <Testimonials />
         <FAQ />
