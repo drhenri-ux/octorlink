@@ -3,11 +3,30 @@ import { Check, Zap } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
+// Import app icons
+import skyIcon from "@/assets/apps/sky.png";
+import deezerIcon from "@/assets/apps/deezer.png";
+import disneyplusIcon from "@/assets/apps/disneyplus.png";
+import hbomaxIcon from "@/assets/apps/hbomax.webp";
+import nbaIcon from "@/assets/apps/nba.png";
+import playkidsIcon from "@/assets/apps/playkids.png";
+import exitlagIcon from "@/assets/apps/exitlag.webp";
+
 interface App {
   id: string;
   name: string;
   icon_url: string | null;
 }
+
+const iconMap: Record<string, string> = {
+  "sky.png": skyIcon,
+  "deezer.png": deezerIcon,
+  "disneyplus.png": disneyplusIcon,
+  "hbomax.webp": hbomaxIcon,
+  "nba.png": nbaIcon,
+  "playkids.png": playkidsIcon,
+  "exitlag.webp": exitlagIcon,
+};
 
 const ComboBuilder = () => {
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -36,23 +55,13 @@ const ComboBuilder = () => {
     );
   };
 
-  const getAppIconUrl = (iconUrl: string | null, appName: string) => {
+  const getAppIconUrl = (iconUrl: string | null) => {
     if (iconUrl) {
       if (iconUrl.startsWith("http")) {
         return iconUrl;
       }
-      // Check if it's a local asset reference
-      const localIcons: Record<string, string> = {
-        "sky.png": "/src/assets/apps/sky.png",
-        "deezer.png": "/src/assets/apps/deezer.png",
-        "disneyplus.png": "/src/assets/apps/disneyplus.png",
-        "hbomax.webp": "/src/assets/apps/hbomax.webp",
-        "nba.png": "/src/assets/apps/nba.png",
-        "playkids.png": "/src/assets/apps/playkids.png",
-        "exitlag.webp": "/src/assets/apps/exitlag.webp",
-      };
-      if (localIcons[iconUrl]) {
-        return localIcons[iconUrl];
+      if (iconMap[iconUrl]) {
+        return iconMap[iconUrl];
       }
       return `https://hzxsaalutzoozjngpdki.supabase.co/storage/v1/object/public/app-icons/${iconUrl}`;
     }
@@ -84,7 +93,7 @@ const ComboBuilder = () => {
           <div className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-5xl mx-auto mb-12">
             {apps.map((app, index) => {
               const isSelected = selectedServices.includes(app.id);
-              const iconUrl = getAppIconUrl(app.icon_url, app.name);
+              const iconUrl = getAppIconUrl(app.icon_url);
 
               return (
                 <button
