@@ -17,7 +17,7 @@ const comingSoonCities = [
 
 const RegionalCoverage = () => {
   const handleWhatsApp = () => {
-    window.open("https://wa.me/5573999999999?text=Olá! Gostaria de verificar a cobertura na minha região.", "_blank");
+    window.open("https://wa.me/5573982264379", "_blank");
   };
 
   return (
