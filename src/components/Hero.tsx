@@ -39,9 +39,8 @@ const Hero = () => {
 
             {/* Main heading */}
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-primary-foreground leading-[1.1] mb-4 md:mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              A Internet Fibra Óptica
-              <br />
-              <span className="text-secondary">Mais Rápida</span> da Região
+              <span className="block">A Internet Fibra Óptica</span>
+              <span className="block"><span className="text-secondary">Mais Rápida</span> da Região</span>
             </h1>
 
             {/* Description */}
