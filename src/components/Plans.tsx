@@ -155,9 +155,9 @@ const Plans = () => {
             }}
             className="w-full"
           >
-            <CarouselContent className="-ml-4">
+            <CarouselContent className="-ml-4 pt-6">
               {plans.map((plan, index) => (
-                <CarouselItem key={plan.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
+                <CarouselItem key={plan.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4 overflow-visible">
                   <div
                     className={`relative rounded-3xl p-8 transition-all duration-500 hover:scale-105 animate-scale-in flex flex-col h-full ${
                       plan.is_popular
