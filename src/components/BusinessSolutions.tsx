@@ -86,13 +86,15 @@ const BusinessSolutions = () => {
           <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">
             Nossa equipe vai analisar o seu cenário e sugerir o melhor link dedicado ideal para o seu negócio
           </p>
-          <Button
-            size="lg"
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8"
-          >
-            <Headphones className="w-4 h-4" />
-            Falar com Especialista
-          </Button>
+          <a href="https://wa.me/5573982264379" target="_blank" rel="noopener noreferrer">
+            <Button
+              size="lg"
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8"
+            >
+              <Headphones className="w-4 h-4" />
+              Falar com Especialista
+            </Button>
+          </a>
         </div>
       </div>
     </section>

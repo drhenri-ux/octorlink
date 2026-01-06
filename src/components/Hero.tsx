@@ -51,14 +51,16 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <Button 
-                variant="cta" 
-                size="lg" 
-                className="text-sm md:text-base px-6 md:px-10 w-full sm:w-auto"
-              >
-                <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
-                Falar com Consultor
-              </Button>
+              <a href="https://wa.me/5573982264379" target="_blank" rel="noopener noreferrer">
+                <Button 
+                  variant="cta" 
+                  size="lg" 
+                  className="text-sm md:text-base px-6 md:px-10 w-full sm:w-auto"
+                >
+                  <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
+                  Falar com Consultor
+                </Button>
+              </a>
               <Button 
                 variant="heroOutline" 
                 size="lg" 
