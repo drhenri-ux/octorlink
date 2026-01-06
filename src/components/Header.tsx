@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, User } from "lucide-react";
 import { useState } from "react";
-import logoWhite from "@/assets/logo-white.png";
+import logoWhite from "@/assets/logo-white.webp";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
