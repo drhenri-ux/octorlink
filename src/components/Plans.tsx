@@ -238,6 +238,19 @@ const Plans = () => {
             </div>
           ))}
         </div>
+
+        {/* Disclaimer Text */}
+        <div className="text-center mt-12 space-y-2">
+          <p className="text-muted-foreground">
+            Todos os planos incluem Wi-Fi, instalação profissional e suporte 24h
+          </p>
+          <p className="text-muted-foreground text-sm italic">
+            * Todos os planos possuem fidelidade de 12 meses
+          </p>
+          <p className="text-muted-foreground text-sm italic">
+            * Planos para áreas rurais, consulte disponibilidade
+          </p>
+        </div>
       </div>
 
       <LeadCaptureForm
