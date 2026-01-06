@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-
+import WhyChooseUs from "@/components/WhyChooseUs";
 import Plans from "@/components/Plans";
 import ComboBuilder from "@/components/ComboBuilder";
 import BusinessSolutions from "@/components/BusinessSolutions";
@@ -19,8 +19,9 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
-        <Comparison />
+        <WhyChooseUs />
         <Plans />
+        <Comparison />
         <ComboBuilder />
         <BusinessSolutions />
         <TechnicalDetails />
