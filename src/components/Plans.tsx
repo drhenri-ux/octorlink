@@ -254,8 +254,14 @@ const Plans = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
+            {/* Desktop arrows */}
             <CarouselPrevious className="hidden md:flex -left-12" />
             <CarouselNext className="hidden md:flex -right-12" />
+            {/* Mobile arrows */}
+            <div className="flex md:hidden justify-center gap-4 mt-6">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
           </Carousel>
         </div>
 
