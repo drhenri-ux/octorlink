@@ -1,5 +1,5 @@
 import { Instagram, Facebook, Phone, Mail, MapPin, Clock } from "lucide-react";
-import logoWhite from "@/assets/logo-white.png";
+import logoWhite from "@/assets/logo-white.webp";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import TikTokIcon from "@/components/icons/TikTokIcon";
 
