@@ -1,7 +1,8 @@
-import { Instagram, Facebook, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Instagram, Facebook, Phone, Mail, MapPin, Clock, ArrowUp } from "lucide-react";
 import logoWhite from "@/assets/logo-white.webp";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import TikTokIcon from "@/components/icons/TikTokIcon";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -102,7 +103,16 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="border-t border-background/10 pt-8">
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-4">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="bg-background/10 border-background/20 text-background hover:bg-background/20 hover:text-background"
+            >
+              <ArrowUp className="w-4 h-4 mr-2" />
+              Ir ao topo
+            </Button>
             <p className="text-background/50 text-sm">
               CNPJ: 64.076.694/0001-23
             </p>
