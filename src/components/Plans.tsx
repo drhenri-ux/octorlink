@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Check, Zap, Star } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import LeadCaptureForm from "./LeadCaptureForm";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 // Import app icons for legacy support
 import bibliotecaIcon from "@/assets/apps/biblioteca.webp";
@@ -139,104 +146,117 @@ const Plans = () => {
           </p>
         </div>
 
-        {/* Plans Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {plans.map((plan, index) => (
-            <div
-              key={plan.id}
-              className={`relative rounded-3xl p-8 transition-all duration-500 hover:scale-105 animate-scale-in flex flex-col ${
-                plan.is_popular
-                  ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-glow"
-                  : "bg-card border border-border shadow-card"
-              }`}
-              style={{ animationDelay: `${index * 0.15}s` }}
-            >
-              {plan.is_popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
-                  <Star className="w-4 h-4 fill-current" />
-                  Mais Popular
-                </div>
-              )}
+        {/* Plans Carousel */}
+        <div className="max-w-7xl mx-auto px-4 md:px-12">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: false,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {plans.map((plan, index) => (
+                <CarouselItem key={plan.id} className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4">
+                  <div
+                    className={`relative rounded-3xl p-8 transition-all duration-500 hover:scale-105 animate-scale-in flex flex-col h-full ${
+                      plan.is_popular
+                        ? "bg-gradient-to-br from-primary to-secondary text-primary-foreground shadow-glow"
+                        : "bg-card border border-border shadow-card"
+                    }`}
+                    style={{ animationDelay: `${index * 0.15}s` }}
+                  >
+                    {plan.is_popular && (
+                      <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground px-4 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                        <Star className="w-4 h-4 fill-current" />
+                        Mais Popular
+                      </div>
+                    )}
 
-              <div className="text-center mb-6">
-                <h3 className={`text-xl font-bold mb-2 ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
-                  {plan.name}
-                </h3>
-                <div className="flex items-baseline justify-center gap-1">
-                  <span className={`text-5xl md:text-6xl font-extrabold ${plan.is_popular ? "text-primary-foreground" : "text-gradient"}`}>
-                    {plan.speed.includes("GB") ? plan.speed.replace(" GB", "") : plan.speed}
-                  </span>
-                  <span className={`text-xl font-semibold ${plan.is_popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                    {plan.speed.includes("GB") ? "GB" : "Mega"}
-                  </span>
-                </div>
-                <div className="mt-4">
-                  {plan.is_consultation ? (
-                    <span className={`text-2xl font-bold ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
-                      Sob Consulta
-                    </span>
-                  ) : (
-                    <>
-                      <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-                        R$
-                      </span>
-                      <span className={`text-3xl font-bold ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
-                        {plan.price?.toFixed(2).replace(".", ",")}
-                      </span>
-                      <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-                        /mês
-                      </span>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              <ul className="space-y-3 mb-6">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3">
-                    <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      plan.is_popular ? "bg-primary-foreground/20" : "bg-secondary/20"
-                    }`}>
-                      <Check className={`w-3 h-3 ${plan.is_popular ? "text-primary-foreground" : "text-secondary"}`} />
+                    <div className="text-center mb-6">
+                      <h3 className={`text-xl font-bold mb-2 ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
+                        {plan.name}
+                      </h3>
+                      <div className="flex items-baseline justify-center gap-1">
+                        <span className={`text-5xl md:text-6xl font-extrabold ${plan.is_popular ? "text-primary-foreground" : "text-gradient"}`}>
+                          {plan.speed.includes("GB") ? plan.speed.replace(" GB", "") : plan.speed}
+                        </span>
+                        <span className={`text-xl font-semibold ${plan.is_popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
+                          {plan.speed.includes("GB") ? "GB" : "Mega"}
+                        </span>
+                      </div>
+                      <div className="mt-4">
+                        {plan.is_consultation ? (
+                          <span className={`text-2xl font-bold ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
+                            Sob Consulta
+                          </span>
+                        ) : (
+                          <>
+                            <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                              R$
+                            </span>
+                            <span className={`text-3xl font-bold ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
+                              {plan.price?.toFixed(2).replace(".", ",")}
+                            </span>
+                            <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                              /mês
+                            </span>
+                          </>
+                        )}
+                      </div>
                     </div>
-                    <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
-                      {feature}
-                    </span>
-                  </li>
-                ))}
-              </ul>
 
-              {/* Apps Section */}
-              {plan.apps.length > 0 && (
-                <div className="mb-6 mt-auto">
-                  <p className={`text-sm font-semibold mb-3 ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
-                    Aplicativos
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {plan.apps.map((app) => (
-                      <img
-                        key={app.id}
-                        src={getAppIcon(app)}
-                        alt={app.name}
-                        title={app.name}
-                        className="w-10 h-10 rounded-lg object-cover shadow-sm"
-                      />
-                    ))}
+                    <ul className="space-y-3 mb-6">
+                      {plan.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-3">
+                          <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+                            plan.is_popular ? "bg-primary-foreground/20" : "bg-secondary/20"
+                          }`}>
+                            <Check className={`w-3 h-3 ${plan.is_popular ? "text-primary-foreground" : "text-secondary"}`} />
+                          </div>
+                          <span className={`text-sm ${plan.is_popular ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Apps Section */}
+                    {plan.apps.length > 0 && (
+                      <div className="mb-6 mt-auto">
+                        <p className={`text-sm font-semibold mb-3 ${plan.is_popular ? "text-primary-foreground" : "text-foreground"}`}>
+                          Aplicativos
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {plan.apps.map((app) => (
+                            <img
+                              key={app.id}
+                              src={getAppIcon(app)}
+                              alt={app.name}
+                              title={app.name}
+                              className="w-10 h-10 rounded-lg object-cover shadow-sm"
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <Button
+                      variant={plan.is_popular ? "heroOutline" : "gradient"}
+                      size="lg"
+                      className="w-full mt-auto"
+                      onClick={() => handleAssinar(`${plan.name} - ${plan.speed}`)}
+                    >
+                      <Zap className="w-4 h-4" />
+                      Assinar Agora
+                    </Button>
                   </div>
-                </div>
-              )}
-
-              <Button
-                variant={plan.is_popular ? "heroOutline" : "gradient"}
-                size="lg"
-                className="w-full mt-auto"
-                onClick={() => handleAssinar(`${plan.name} - ${plan.speed}`)}
-              >
-                <Zap className="w-4 h-4" />
-                Assinar Agora
-              </Button>
-            </div>
-          ))}
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex -left-12" />
+            <CarouselNext className="hidden md:flex -right-12" />
+          </Carousel>
         </div>
 
         {/* Disclaimer Text */}
