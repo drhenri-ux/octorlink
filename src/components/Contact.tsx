@@ -29,7 +29,7 @@ const Contact = () => {
           {/* Contact Cards */}
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <a
-              href="https://wa.me/5511999999999"
+              href="https://wa.me/5573982264379"
               target="_blank"
               rel="noopener noreferrer"
               className="group bg-primary-foreground/10 backdrop-blur-sm border border-secondary/30 rounded-2xl p-6 hover:bg-primary-foreground/20 transition-all duration-300 hover:scale-105 animate-scale-in"
@@ -38,11 +38,11 @@ const Contact = () => {
                 <MessageCircle className="w-6 h-6 text-secondary" />
               </div>
               <h3 className="text-lg font-bold text-primary-foreground mb-1">WhatsApp</h3>
-              <p className="text-primary-foreground/70 text-sm">(11) 99999-9999</p>
+              <p className="text-primary-foreground/70 text-sm">(73) 98226-4379</p>
             </a>
 
             <a
-              href="tel:08001234567"
+              href="tel:08003281001"
               className="group bg-primary-foreground/10 backdrop-blur-sm border border-secondary/30 rounded-2xl p-6 hover:bg-primary-foreground/20 transition-all duration-300 hover:scale-105 animate-scale-in"
               style={{ animationDelay: '0.1s' }}
             >
@@ -50,7 +50,7 @@ const Contact = () => {
                 <Phone className="w-6 h-6 text-secondary" />
               </div>
               <h3 className="text-lg font-bold text-primary-foreground mb-1">Central</h3>
-              <p className="text-primary-foreground/70 text-sm">0800 123 4567</p>
+              <p className="text-primary-foreground/70 text-sm">0800 3281 001</p>
             </a>
 
             <div
@@ -66,10 +66,12 @@ const Contact = () => {
           </div>
 
           {/* CTA Button */}
-          <Button variant="hero" size="xl" className="animate-pulse-glow">
-            <MessageCircle className="w-5 h-5" />
-            Falar pelo WhatsApp
-          </Button>
+          <a href="https://wa.me/5573982264379" target="_blank" rel="noopener noreferrer">
+            <Button variant="hero" size="xl" className="animate-pulse-glow">
+              <MessageCircle className="w-5 h-5" />
+              Falar pelo WhatsApp
+            </Button>
+          </a>
         </div>
       </div>
     </section>

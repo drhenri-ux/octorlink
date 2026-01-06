@@ -25,12 +25,12 @@ const Footer = () => {
               <li className="flex items-center gap-3">
                 <WhatsAppIcon className="w-4 h-4 text-background/70" />
                 <a 
-                  href="https://wa.me/5573999999999" 
+                  href="https://wa.me/5573982264379" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-background/70 hover:text-background transition-colors text-sm"
                 >
-                  WhatsApp
+                  (73) 98226-4379
                 </a>
               </li>
               <li className="flex items-center gap-3">

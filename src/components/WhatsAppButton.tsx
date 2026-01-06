@@ -1,8 +1,5 @@
 const WhatsAppButton = () => {
-  const phoneNumber = "5511999999999";
-  const message = "Olá! Gostaria de saber mais sobre os planos de internet da Octorlink.";
-  
-  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  const whatsappUrl = "https://wa.me/5573982264379";
 
   return (
     <a
