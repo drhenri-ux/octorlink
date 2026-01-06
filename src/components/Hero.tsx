@@ -39,14 +39,14 @@ const Hero = () => {
 
             {/* Main heading */}
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-primary-foreground leading-[1.1] mb-4 md:mb-6 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              A Internet Fibra Óptica{" "}
-              <span className="text-secondary">Mais Rápida</span>{" "}
-              da Região
+              A Internet Fibra Óptica
+              <br />
+              <span className="text-secondary">Mais Rápida</span> da Região
             </h1>
 
             {/* Description */}
             <p className="text-sm sm:text-base md:text-lg text-primary-foreground/80 mb-6 md:mb-8 leading-relaxed animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Velocidade de verdade, Wi-Fi de última geração e suporte técnico local. 
+              Velocidade de verdade, Wi-Fi 6 de última geração e suporte técnico local. 
               Planos sob medida para sua casa ou empresa.
             </p>
 
