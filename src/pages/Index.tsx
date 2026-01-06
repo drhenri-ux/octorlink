@@ -6,7 +6,6 @@ import ComboBuilder from "@/components/ComboBuilder";
 import BusinessSolutions from "@/components/BusinessSolutions";
 import TechnicalDetails from "@/components/TechnicalDetails";
 import RegionalCoverage from "@/components/RegionalCoverage";
-import Benefits from "@/components/Benefits";
 import Comparison from "@/components/Comparison";
 import Testimonials from "@/components/Testimonials";
 import SupportCTA from "@/components/SupportCTA";
@@ -26,7 +25,6 @@ const Index = () => {
         <BusinessSolutions />
         <TechnicalDetails />
         <RegionalCoverage />
-        <Benefits />
         <Testimonials />
         <SupportCTA />
         <Contact />
