@@ -215,6 +215,48 @@ export type Database = {
         }
         Relationships: []
       }
+      referrals: {
+        Row: {
+          amigo_celular: string
+          amigo_nome: string
+          amigo_sobrenome: string
+          created_at: string
+          id: string
+          status: string
+          titular_celular: string
+          titular_cpf: string | null
+          titular_nome: string
+          titular_sobrenome: string
+          updated_at: string
+        }
+        Insert: {
+          amigo_celular: string
+          amigo_nome: string
+          amigo_sobrenome: string
+          created_at?: string
+          id?: string
+          status?: string
+          titular_celular: string
+          titular_cpf?: string | null
+          titular_nome: string
+          titular_sobrenome: string
+          updated_at?: string
+        }
+        Update: {
+          amigo_celular?: string
+          amigo_nome?: string
+          amigo_sobrenome?: string
+          created_at?: string
+          id?: string
+          status?: string
+          titular_celular?: string
+          titular_cpf?: string | null
+          titular_nome?: string
+          titular_sobrenome?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
