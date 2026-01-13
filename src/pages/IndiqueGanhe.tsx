@@ -125,7 +125,7 @@ const IndiqueGanhe = () => {
   return (
     <>
       <Header />
-      <main className="bg-gradient-to-br from-primary via-primary to-primary-dark py-16">
+      <main className="bg-gradient-to-br from-primary via-primary to-primary-dark pt-28 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {/* Hero Section */}
