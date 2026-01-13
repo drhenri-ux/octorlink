@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LogOut, Package, Smartphone, Users, Settings } from "lucide-react";
+import { LogOut, Package, Smartphone, Users, Settings, Gift } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
 import PlansManager from "@/components/admin/PlansManager";
 import AppsManager from "@/components/admin/AppsManager";
 import LeadsManager from "@/components/admin/LeadsManager";
 import ServicesManager from "@/components/admin/ServicesManager";
+import ReferralsManager from "@/components/admin/ReferralsManager";
 
 const Admin = () => {
   const { user, loading, signOut } = useAuth();
@@ -69,10 +70,14 @@ const Admin = () => {
         </div>
 
         <Tabs defaultValue="leads" className="w-full">
-          <TabsList className="mb-8">
+          <TabsList className="mb-8 flex-wrap">
             <TabsTrigger value="leads" className="gap-2">
               <Users className="w-4 h-4" />
               CRM
+            </TabsTrigger>
+            <TabsTrigger value="referrals" className="gap-2">
+              <Gift className="w-4 h-4" />
+              Indicações
             </TabsTrigger>
             <TabsTrigger value="plans" className="gap-2">
               <Package className="w-4 h-4" />
@@ -90,6 +95,10 @@ const Admin = () => {
 
           <TabsContent value="leads">
             <LeadsManager />
+          </TabsContent>
+
+          <TabsContent value="referrals">
+            <ReferralsManager />
           </TabsContent>
 
           <TabsContent value="plans">

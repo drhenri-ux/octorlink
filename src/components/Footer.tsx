@@ -1,4 +1,5 @@
-import { Instagram, Facebook, Phone, Mail, MapPin, Clock, ArrowUp } from "lucide-react";
+import { Instagram, Facebook, Phone, Mail, MapPin, Clock, ArrowUp, Gift } from "lucide-react";
+import { Link } from "react-router-dom";
 import logoWhite from "@/assets/logo-white.webp";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import TikTokIcon from "@/components/icons/TikTokIcon";
@@ -10,13 +11,29 @@ const Footer = () => {
   return (
     <footer className="bg-foreground py-12">
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Logo & Description */}
           <div>
             <img src={logoWhite} alt="Octorlink" className="h-10 mb-4" />
             <p className="text-background/70 text-sm max-w-md leading-relaxed">
               Internet 100% fibra óptica de alta velocidade para Eunápolis e região.
             </p>
+          </div>
+
+          {/* Links */}
+          <div>
+            <h4 className="text-background font-semibold mb-4">Links</h4>
+            <ul className="space-y-3">
+              <li>
+                <Link 
+                  to="/indique-e-ganhe"
+                  className="text-background/70 hover:text-background transition-colors text-sm flex items-center gap-2"
+                >
+                  <Gift className="w-4 h-4" />
+                  Indique e Ganhe
+                </Link>
+              </li>
+            </ul>
           </div>
 
           {/* Contact */}
