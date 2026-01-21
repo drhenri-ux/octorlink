@@ -26,7 +26,7 @@ const features = [
 
 const BusinessSolutions = () => {
   return (
-    <section className="relative py-20 lg:py-32 overflow-hidden">
+    <section id="empresa" className="relative py-20 lg:py-32 overflow-hidden">
       {/* Background with overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center"

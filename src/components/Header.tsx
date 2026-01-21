@@ -1,33 +1,45 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, User } from "lucide-react";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import logoWhite from "@/assets/logo-white.webp";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === "/";
 
   const navLinks = [
-    { label: "Início", href: "#inicio" },
-    { label: "Planos", href: "#planos" },
-    { label: "Benefícios", href: "#beneficios" },
-    { label: "Contato", href: "#contato" },
+    { label: "Início", href: "#inicio", sectionId: "inicio" },
+    { label: "Planos", href: "#planos", sectionId: "planos" },
+    { label: "Empresa", href: "#empresa", sectionId: "empresa" },
+    { label: "Contato", href: "#contato", sectionId: "contato" },
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const scrollToPlans = (e: React.MouseEvent) => {
     e.preventDefault();
-    const plansSection = document.getElementById("planos");
-    if (plansSection) {
-      plansSection.scrollIntoView({ behavior: "smooth" });
+    if (isHomePage) {
+      scrollToSection("planos");
+    } else {
+      navigate("/#planos");
     }
     setIsMenuOpen(false);
   };
 
-  const handleNavClick = (e: React.MouseEvent, href: string) => {
+  const handleNavClick = (e: React.MouseEvent, sectionId: string) => {
     e.preventDefault();
-    const targetId = href.replace("#", "");
-    const targetSection = document.getElementById(targetId);
-    if (targetSection) {
-      targetSection.scrollIntoView({ behavior: "smooth" });
+    if (isHomePage) {
+      scrollToSection(sectionId);
+    } else {
+      navigate(`/#${sectionId}`);
     }
     setIsMenuOpen(false);
   };
@@ -35,7 +47,7 @@ const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-secondary/20">
       <div className="container mx-auto flex items-center justify-between py-3 md:py-4">
-        <a href="#inicio" className="flex items-center" onClick={(e) => handleNavClick(e, "#inicio")}>
+        <a href="/" className="flex items-center" onClick={(e) => { e.preventDefault(); isHomePage ? scrollToSection("inicio") : navigate("/"); }}>
           <img src={logoWhite} alt="Octorlink" className="h-8 md:h-10" />
         </a>
 
@@ -45,7 +57,7 @@ const Header = () => {
             <a
               key={link.label}
               href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
+              onClick={(e) => handleNavClick(e, link.sectionId)}
               className="text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-300 font-medium text-sm"
             >
               {link.label}
@@ -83,7 +95,7 @@ const Header = () => {
                 key={link.label}
                 href={link.href}
                 className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 transition-colors duration-300 font-medium py-3 px-4 rounded-lg"
-                onClick={(e) => handleNavClick(e, link.href)}
+                onClick={(e) => handleNavClick(e, link.sectionId)}
               >
                 {link.label}
               </a>
