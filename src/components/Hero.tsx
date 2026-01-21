@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Wifi, MessageCircle } from "lucide-react";
-import mascotWoman from "@/assets/mascot-woman.png";
+import octopusMascot from "@/assets/octopus-mascot-new.webp";
 
 const Hero = () => {
   return (
@@ -21,9 +21,9 @@ const Hero = () => {
           {/* Mascot - Mobile: Top */}
           <div className="lg:hidden w-full flex justify-center">
             <img 
-              src={mascotWoman} 
-              alt="Atendente Octorlink" 
-              className="w-44 h-auto drop-shadow-2xl"
+              src={octopusMascot} 
+              alt="Mascote Octorlink" 
+              className="w-48 h-auto drop-shadow-2xl"
             />
           </div>
 
@@ -80,9 +80,9 @@ const Hero = () => {
           {/* Mascot - Desktop: Right side */}
           <div className="hidden lg:flex flex-1 justify-center items-end">
             <img 
-              src={mascotWoman} 
-              alt="Atendente Octorlink" 
-              className="w-[320px] xl:w-[380px] h-auto drop-shadow-2xl"
+              src={octopusMascot} 
+              alt="Mascote Octorlink" 
+              className="w-[350px] xl:w-[420px] h-auto drop-shadow-2xl"
             />
           </div>
         </div>
