@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -18,6 +20,35 @@ import {
   Monitor,
   Clock
 } from "lucide-react";
+import type { Variants } from "framer-motion";
+
+const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const fadeInLeft: Variants = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const fadeInRight: Variants = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
+  }
+};
+
+const scaleIn: Variants = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+};
 
 const benefits = [
   {
@@ -59,16 +90,20 @@ const solutions = [
 ];
 
 const InternetEmpresarial = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleWhatsApp = () => {
     window.open("https://wa.me/5573982264379?text=Olá! Tenho interesse na Internet Empresarial da Octorlink.", "_blank");
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-primary">
       <Header />
-      <main className="pt-20">
+      <main>
         {/* Hero Section */}
-        <section className="relative py-20 lg:py-32 overflow-hidden">
+        <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -77,35 +112,54 @@ const InternetEmpresarial = () => {
           />
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center max-w-4xl mx-auto animate-slide-up">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 border border-secondary/30 text-secondary font-medium text-sm mb-6">
+            <motion.div 
+              className="text-center max-w-4xl mx-auto"
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+            >
+              <motion.span 
+                variants={fadeInUp}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/20 border border-secondary/30 text-secondary font-medium text-sm mb-6"
+              >
                 <Building2 className="w-4 h-4" />
                 Soluções Empresariais
-              </span>
+              </motion.span>
               
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight">
+              <motion.h1 
+                variants={fadeInUp}
+                className="text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 leading-tight"
+              >
                 Internet Empresarial de Alta Performance para seu{" "}
                 <span className="text-secondary">Negócio</span>
-              </h1>
+              </motion.h1>
               
-              <p className="text-lg md:text-xl text-primary-foreground/80 mb-4">
-                Conexão ultrarrápida, estável e segura para empresas que não podem parar.
-              </p>
-              
-              <p className="text-base md:text-lg text-primary-foreground/70 mb-10 max-w-3xl mx-auto">
-                A Octorlink entrega internet fibra otimizada para produtividade, reuniões sem travamentos, gestão sem interrupções e operações conectadas 24/7.
-              </p>
-              
-              <Button
-                size="xl"
-                variant="hero"
-                onClick={handleWhatsApp}
-                className="gap-2"
+              <motion.p 
+                variants={fadeInUp}
+                className="text-lg md:text-xl text-primary-foreground/80 mb-4"
               >
-                Solicite uma proposta personalizada
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </div>
+                Conexão ultrarrápida, estável e segura para empresas que não podem parar.
+              </motion.p>
+              
+              <motion.p 
+                variants={fadeInUp}
+                className="text-base md:text-lg text-primary-foreground/70 mb-10 max-w-3xl mx-auto"
+              >
+                A Octorlink entrega internet fibra otimizada para produtividade, reuniões sem travamentos, gestão sem interrupções e operações conectadas 24/7.
+              </motion.p>
+              
+              <motion.div variants={fadeInUp}>
+                <Button
+                  size="xl"
+                  variant="hero"
+                  onClick={handleWhatsApp}
+                  className="gap-2"
+                >
+                  Solicite uma proposta personalizada
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
 
@@ -115,7 +169,12 @@ const InternetEmpresarial = () => {
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 {/* Problem */}
-                <div className="animate-slide-in-left">
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-100px" }}
+                  variants={fadeInLeft}
+                >
                   <div className="bg-destructive/10 border border-destructive/20 rounded-2xl p-8">
                     <div className="w-14 h-14 rounded-xl bg-destructive/20 flex items-center justify-center mb-6">
                       <Monitor className="w-7 h-7 text-destructive" />
@@ -127,10 +186,15 @@ const InternetEmpresarial = () => {
                       Seu negócio depende de tecnologia e comunicação constante. Uma conexão lenta ou instável significa atrasos, reuniões interrompidas, perda de produtividade e clientes insatisfeitos.
                     </p>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Solution */}
-                <div className="animate-slide-in-right">
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-100px" }}
+                  variants={fadeInRight}
+                >
                   <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8">
                     <div className="w-14 h-14 rounded-xl bg-secondary/20 flex items-center justify-center mb-6">
                       <CheckCircle2 className="w-7 h-7 text-secondary" />
@@ -156,30 +220,42 @@ const InternetEmpresarial = () => {
                       </li>
                     </ul>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
         </section>
 
         {/* Benefits Section */}
-        <section className="py-20 lg:py-28">
+        <section className="py-20 lg:py-28 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-16 animate-slide-up">
+            <motion.div 
+              className="text-center mb-16"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeInUp}
+            >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
                 Benefícios <span className="text-gradient">Principais</span>
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Tudo o que sua empresa precisa para operar com máxima eficiência
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {benefits.map((benefit, index) => (
-                <div
+            <motion.div 
+              className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={staggerContainer}
+            >
+              {benefits.map((benefit) => (
+                <motion.div
                   key={benefit.title}
-                  className="group p-8 rounded-2xl bg-card border border-border hover:border-secondary/50 hover:shadow-card transition-all duration-300 animate-scale-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  variants={scaleIn}
+                  className="group p-8 rounded-2xl bg-card border border-border hover:border-secondary/50 hover:shadow-card transition-all duration-300"
                 >
                   <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-6 group-hover:bg-secondary/20 group-hover:border-secondary/30 transition-colors">
                     <benefit.icon className="w-7 h-7 text-primary group-hover:text-secondary transition-colors" />
@@ -190,9 +266,9 @@ const InternetEmpresarial = () => {
                   <p className="text-muted-foreground leading-relaxed">
                     {benefit.description}
                   </p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
@@ -206,21 +282,33 @@ const InternetEmpresarial = () => {
           />
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-16 animate-slide-up">
+            <motion.div 
+              className="text-center mb-16"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeInUp}
+            >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-4">
                 Para quem é <span className="text-secondary">ideal</span>
               </h2>
               <p className="text-lg text-primary-foreground/80">
                 Este serviço é perfeito para empresas que:
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <motion.div 
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={staggerContainer}
+            >
               {idealFor.map((item, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="flex items-start gap-4 p-6 rounded-xl bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 hover:border-secondary/50 transition-all duration-300 animate-scale-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  variants={scaleIn}
+                  className="flex items-start gap-4 p-6 rounded-xl bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 hover:border-secondary/50 transition-all duration-300"
                 >
                   <div className="w-12 h-12 rounded-lg bg-secondary/20 border border-secondary/30 flex items-center justify-center flex-shrink-0">
                     <item.icon className="w-6 h-6 text-secondary" />
@@ -228,46 +316,63 @@ const InternetEmpresarial = () => {
                   <p className="text-primary-foreground font-medium">
                     {item.text}
                   </p>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Solutions Section */}
         <section className="py-20 lg:py-28 bg-muted/30">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 animate-slide-up">
+            <motion.div 
+              className="max-w-4xl mx-auto text-center"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.h2 
+                variants={fadeInUp}
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6"
+              >
                 A Octorlink vai além da <span className="text-gradient">internet básica</span>
-              </h2>
-              <p className="text-lg text-muted-foreground mb-12 animate-slide-up">
+              </motion.h2>
+              <motion.p 
+                variants={fadeInUp}
+                className="text-lg text-muted-foreground mb-12"
+              >
                 Oferecemos soluções adaptáveis ao seu negócio
-              </p>
+              </motion.p>
 
-              <div className="grid sm:grid-cols-2 gap-4 text-left mb-12">
+              <motion.div 
+                className="grid sm:grid-cols-2 gap-4 text-left mb-12"
+                variants={staggerContainer}
+              >
                 {solutions.map((solution, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border animate-scale-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    variants={scaleIn}
+                    className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border"
                   >
                     <CheckCircle2 className="w-6 h-6 text-secondary flex-shrink-0" />
                     <span className="text-foreground font-medium">{solution}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
-              <Button
-                size="xl"
-                variant="hero"
-                onClick={handleWhatsApp}
-                className="gap-2 animate-slide-up"
-              >
-                <Headphones className="w-5 h-5" />
-                Fale com um Especialista
-              </Button>
-            </div>
+              <motion.div variants={fadeInUp}>
+                <Button
+                  size="xl"
+                  variant="hero"
+                  onClick={handleWhatsApp}
+                  className="gap-2"
+                >
+                  <Headphones className="w-5 h-5" />
+                  Fale com um Especialista
+                </Button>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
 
@@ -281,22 +386,36 @@ const InternetEmpresarial = () => {
           />
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center max-w-3xl mx-auto animate-slide-up">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6">
-                Pronto para transformar a conectividade da sua empresa?
-              </h2>
-              <p className="text-lg text-primary-foreground/80 mb-10">
-                Entre em contato agora e receba uma proposta personalizada para o seu negócio.
-              </p>
-              <Button
-                size="xl"
-                className="bg-white text-primary hover:bg-white/90 font-bold gap-2"
-                onClick={handleWhatsApp}
+            <motion.div 
+              className="text-center max-w-3xl mx-auto"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.h2 
+                variants={fadeInUp}
+                className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground mb-6"
               >
-                Solicitar Proposta Personalizada
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </div>
+                Pronto para transformar a conectividade da sua empresa?
+              </motion.h2>
+              <motion.p 
+                variants={fadeInUp}
+                className="text-lg text-primary-foreground/80 mb-10"
+              >
+                Entre em contato agora e receba uma proposta personalizada para o seu negócio.
+              </motion.p>
+              <motion.div variants={fadeInUp}>
+                <Button
+                  size="xl"
+                  className="bg-white text-primary hover:bg-white/90 font-bold gap-2"
+                  onClick={handleWhatsApp}
+                >
+                  Solicitar Proposta Personalizada
+                  <ArrowRight className="w-5 h-5" />
+                </Button>
+              </motion.div>
+            </motion.div>
           </div>
         </section>
       </main>
