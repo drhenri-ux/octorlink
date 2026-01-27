@@ -99,9 +99,9 @@ const InternetEmpresarial = () => {
   };
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen bg-background">
       <Header />
-      <main>
+      <main className="pt-20">
         {/* Hero Section */}
         <section className="relative pt-24 pb-20 lg:pt-32 lg:pb-32 overflow-hidden">
           <div 
