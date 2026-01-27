@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Network, Shield, Zap, TrendingUp, Headphones, Building2 } from "lucide-react";
+import { Network, Shield, Zap, TrendingUp, Headphones, Building2, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -81,20 +82,20 @@ const BusinessSolutions = () => {
             <Headphones className="w-8 h-8 text-secondary" />
           </div>
           <h3 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-            Fale com um Especialista em Redes
+            Internet Empresarial de Alta Performance
           </h3>
           <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">
-            Nossa equipe vai analisar o seu cenário e sugerir o melhor link dedicado ideal para o seu negócio
+            Conexão ultrarrápida, estável e segura para empresas que não podem parar. Conheça nossas soluções corporativas.
           </p>
-          <a href="https://wa.me/5573982264379" target="_blank" rel="noopener noreferrer">
+          <Link to="/internet-empresarial">
             <Button
               size="lg"
-              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8"
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8 gap-2"
             >
-              <Headphones className="w-4 h-4" />
-              Falar com Especialista
+              Conhecer Soluções Empresariais
+              <ArrowRight className="w-4 h-4" />
             </Button>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
