@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { 
   User, 
   Phone, 
@@ -15,7 +15,9 @@ import {
   ChevronRight,
   Loader2,
   Trash2,
-  Eye
+  Eye,
+  Building2,
+  Monitor
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -39,6 +41,9 @@ interface Lead {
   data_nascimento: string | null;
   nome_mae: string | null;
   dia_vencimento: string | null;
+  empresa_nome: string | null;
+  qtd_dispositivos: string | null;
+  tipo_lead: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -190,9 +195,21 @@ const LeadsManager = () => {
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between">
                         <div className="space-y-1 flex-1">
-                          <h4 className="font-medium text-foreground text-sm">
-                            {lead.nome_completo}
-                          </h4>
+                          <div className="flex items-center gap-2">
+                            <h4 className="font-medium text-foreground text-sm">
+                              {lead.nome_completo}
+                            </h4>
+                            {lead.tipo_lead === "empresarial" && (
+                              <Badge className="bg-purple-500/20 text-purple-700 border-purple-500/30 text-[10px] px-1.5">
+                                Empresa
+                              </Badge>
+                            )}
+                          </div>
+                          {lead.empresa_nome && (
+                            <p className="text-xs text-muted-foreground font-medium">
+                              {lead.empresa_nome}
+                            </p>
+                          )}
                           <p className="text-xs text-muted-foreground flex items-center gap-1">
                             <Phone className="w-3 h-3" />
                             {lead.telefone}
@@ -237,6 +254,9 @@ const LeadsManager = () => {
               <User className="w-5 h-5" />
               {selectedLead?.nome_completo}
             </DialogTitle>
+            <DialogDescription>
+              Detalhes completos do lead
+            </DialogDescription>
           </DialogHeader>
 
           {selectedLead && (
@@ -258,6 +278,35 @@ const LeadsManager = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Business Info */}
+              {selectedLead.tipo_lead === "empresarial" && (
+                <Card className="border-purple-500/30 bg-purple-500/5">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium flex items-center gap-2">
+                      <Building2 className="w-4 h-4 text-purple-600" />
+                      Dados Empresariais
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="grid grid-cols-2 gap-4 text-sm">
+                    {selectedLead.empresa_nome && (
+                      <div>
+                        <span className="text-muted-foreground">Empresa:</span>
+                        <p className="font-medium">{selectedLead.empresa_nome}</p>
+                      </div>
+                    )}
+                    {selectedLead.qtd_dispositivos && (
+                      <div>
+                        <span className="text-muted-foreground">Dispositivos:</span>
+                        <p className="font-medium flex items-center gap-1">
+                          <Monitor className="w-3 h-3" />
+                          {selectedLead.qtd_dispositivos}
+                        </p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Contact Info */}
               <Card>
