@@ -15,7 +15,7 @@ import Footer from "@/components/Footer";
 const referralSchema = z.object({
   titular_nome: z.string().min(2, "Nome é obrigatório"),
   titular_sobrenome: z.string().min(2, "Sobrenome é obrigatório"),
-  titular_cpf: z.string().optional(),
+  titular_cpf: z.string().min(14, "CPF é obrigatório"),
   titular_celular: z.string().min(10, "Celular inválido"),
   amigo_nome: z.string().min(2, "Nome do amigo é obrigatório"),
   amigo_sobrenome: z.string().min(2, "Sobrenome do amigo é obrigatório"),
@@ -48,7 +48,7 @@ const IndiqueGanhe = () => {
       const { error } = await supabase.from("referrals").insert({
         titular_nome: data.titular_nome,
         titular_sobrenome: data.titular_sobrenome,
-        titular_cpf: data.titular_cpf || null,
+        titular_cpf: data.titular_cpf,
         titular_celular: data.titular_celular,
         amigo_nome: data.amigo_nome,
         amigo_sobrenome: data.amigo_sobrenome,
@@ -211,7 +211,7 @@ const IndiqueGanhe = () => {
                         name="titular_cpf"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>CPF (opcional)</FormLabel>
+                            <FormLabel>CPF</FormLabel>
                             <FormControl>
                               <Input 
                                 placeholder="000.000.000-00" 
