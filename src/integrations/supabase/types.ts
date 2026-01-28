@@ -82,6 +82,7 @@ export type Database = {
           data_nascimento: string | null
           dia_vencimento: string | null
           email: string | null
+          empresa_nome: string | null
           endereco: string | null
           estado: string | null
           id: string
@@ -89,10 +90,12 @@ export type Database = {
           nome_mae: string | null
           numero: string | null
           plano_selecionado: string | null
+          qtd_dispositivos: string | null
           rg: string | null
           servicos_adicionais: string[] | null
           status: string
           telefone: string
+          tipo_lead: string | null
           updated_at: string
         }
         Insert: {
@@ -105,6 +108,7 @@ export type Database = {
           data_nascimento?: string | null
           dia_vencimento?: string | null
           email?: string | null
+          empresa_nome?: string | null
           endereco?: string | null
           estado?: string | null
           id?: string
@@ -112,10 +116,12 @@ export type Database = {
           nome_mae?: string | null
           numero?: string | null
           plano_selecionado?: string | null
+          qtd_dispositivos?: string | null
           rg?: string | null
           servicos_adicionais?: string[] | null
           status?: string
           telefone: string
+          tipo_lead?: string | null
           updated_at?: string
         }
         Update: {
@@ -128,6 +134,7 @@ export type Database = {
           data_nascimento?: string | null
           dia_vencimento?: string | null
           email?: string | null
+          empresa_nome?: string | null
           endereco?: string | null
           estado?: string | null
           id?: string
@@ -135,10 +142,12 @@ export type Database = {
           nome_mae?: string | null
           numero?: string | null
           plano_selecionado?: string | null
+          qtd_dispositivos?: string | null
           rg?: string | null
           servicos_adicionais?: string[] | null
           status?: string
           telefone?: string
+          tipo_lead?: string | null
           updated_at?: string
         }
         Relationships: []

@@ -1,9 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useToast } from "@/hooks/use-toast";
 import { 
   Zap, 
   Shield, 
@@ -18,9 +25,20 @@ import {
   ArrowRight,
   Building2,
   Monitor,
-  Clock
+  Clock,
+  Send
 } from "lucide-react";
 import type { Variants } from "framer-motion";
+
+const businessLeadSchema = z.object({
+  nome: z.string().min(2, "Nome é obrigatório"),
+  whatsapp: z.string().min(10, "WhatsApp inválido"),
+  empresa_nome: z.string().min(2, "Nome da empresa é obrigatório"),
+  cnpj: z.string().min(14, "CNPJ é obrigatório"),
+  qtd_dispositivos: z.string().min(1, "Informe a quantidade de dispositivos"),
+});
+
+type BusinessLeadFormData = z.infer<typeof businessLeadSchema>;
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -90,12 +108,78 @@ const solutions = [
 ];
 
 const InternetEmpresarial = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
+
+  const form = useForm<BusinessLeadFormData>({
+    resolver: zodResolver(businessLeadSchema),
+    defaultValues: {
+      nome: "",
+      whatsapp: "",
+      empresa_nome: "",
+      cnpj: "",
+      qtd_dispositivos: "",
+    },
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleWhatsApp = () => {
-    window.open("https://wa.me/5573982264379?text=Olá! Tenho interesse na Internet Empresarial da Octorlink.", "_blank");
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const formatPhone = (value: string) => {
+    const numbers = value.replace(/\D/g, "");
+    if (numbers.length <= 2) return numbers;
+    if (numbers.length <= 7) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    if (numbers.length <= 11) return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7)}`;
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
+  };
+
+  const formatCNPJ = (value: string) => {
+    const numbers = value.replace(/\D/g, "");
+    if (numbers.length <= 2) return numbers;
+    if (numbers.length <= 5) return `${numbers.slice(0, 2)}.${numbers.slice(2)}`;
+    if (numbers.length <= 8) return `${numbers.slice(0, 2)}.${numbers.slice(2, 5)}.${numbers.slice(5)}`;
+    if (numbers.length <= 12) return `${numbers.slice(0, 2)}.${numbers.slice(2, 5)}.${numbers.slice(5, 8)}/${numbers.slice(8)}`;
+    return `${numbers.slice(0, 2)}.${numbers.slice(2, 5)}.${numbers.slice(5, 8)}/${numbers.slice(8, 12)}-${numbers.slice(12, 14)}`;
+  };
+
+  const onSubmit = async (data: BusinessLeadFormData) => {
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.from("leads").insert({
+        nome_completo: data.nome,
+        telefone: data.whatsapp,
+        empresa_nome: data.empresa_nome,
+        cpf_cnpj: data.cnpj,
+        qtd_dispositivos: data.qtd_dispositivos,
+        tipo_lead: "empresarial",
+        status: "interessado",
+      });
+
+      if (error) throw error;
+
+      setIsSuccess(true);
+      form.reset();
+      toast({
+        title: "Solicitação enviada!",
+        description: "Nossa equipe comercial entrará em contato em breve.",
+      });
+    } catch (error) {
+      console.error("Erro ao enviar lead:", error);
+      toast({
+        title: "Erro ao enviar",
+        description: "Ocorreu um erro ao enviar sua solicitação. Tente novamente.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -152,7 +236,7 @@ const InternetEmpresarial = () => {
                 <Button
                   size="xl"
                   variant="hero"
-                  onClick={handleWhatsApp}
+                  onClick={scrollToForm}
                   className="gap-2"
                 >
                   Solicite uma proposta personalizada
@@ -365,13 +449,156 @@ const InternetEmpresarial = () => {
                 <Button
                   size="xl"
                   variant="hero"
-                  onClick={handleWhatsApp}
+                  onClick={scrollToForm}
                   className="gap-2"
                 >
                   <Headphones className="w-5 h-5" />
                   Fale com um Especialista
                 </Button>
               </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Form Section */}
+        <section ref={formRef} id="formulario" className="py-20 lg:py-28 bg-background">
+          <div className="container mx-auto px-4">
+            <motion.div 
+              className="max-w-2xl mx-auto"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={fadeInUp} className="text-center mb-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                  Solicite sua <span className="text-gradient">Proposta Personalizada</span>
+                </h2>
+                <p className="text-muted-foreground">
+                  Preencha o formulário abaixo e nossa equipe comercial entrará em contato.
+                </p>
+              </motion.div>
+
+              {isSuccess ? (
+                <motion.div 
+                  variants={scaleIn}
+                  className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center"
+                >
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-2">Solicitação Enviada!</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Nossa equipe comercial entrará em contato em breve para apresentar a melhor solução para sua empresa.
+                  </p>
+                  <Button onClick={() => setIsSuccess(false)} variant="outline">
+                    Enviar outra solicitação
+                  </Button>
+                </motion.div>
+              ) : (
+                <motion.div 
+                  variants={scaleIn}
+                  className="bg-card border border-border rounded-2xl p-6 md:p-10 shadow-card"
+                >
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                      <FormField
+                        control={form.control}
+                        name="nome"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nome</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Seu nome completo" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="whatsapp"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>WhatsApp</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="(00) 00000-0000" 
+                                {...field}
+                                onChange={(e) => field.onChange(formatPhone(e.target.value))}
+                                maxLength={15}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="empresa_nome"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Nome da Empresa</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Nome da sua empresa" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="cnpj"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>CNPJ</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="00.000.000/0000-00" 
+                                {...field}
+                                onChange={(e) => field.onChange(formatCNPJ(e.target.value))}
+                                maxLength={18}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="qtd_dispositivos"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Quantos dispositivos conectados ao mesmo tempo?</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Ex: 10, 20, 50..." {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <Button 
+                        type="submit" 
+                        size="lg" 
+                        className="w-full gap-2"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? "Enviando..." : (
+                          <>
+                            <Send className="w-5 h-5" />
+                            Solicitar Proposta
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </Form>
+                </motion.div>
+              )}
             </motion.div>
           </div>
         </section>
@@ -409,7 +636,7 @@ const InternetEmpresarial = () => {
                 <Button
                   size="xl"
                   className="bg-white text-primary hover:bg-white/90 font-bold gap-2"
-                  onClick={handleWhatsApp}
+                  onClick={scrollToForm}
                 >
                   Solicitar Proposta Personalizada
                   <ArrowRight className="w-5 h-5" />
