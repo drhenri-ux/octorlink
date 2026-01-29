@@ -4,9 +4,11 @@ import logoWhite from "@/assets/logo-white.webp";
 import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import TikTokIcon from "@/components/icons/TikTokIcon";
 import { Button } from "@/components/ui/button";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { data: siteSettings } = useSiteSettings();
 
   return (
     <footer className="bg-foreground py-12">
@@ -26,13 +28,23 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link 
-                  to="/indique-e-ganhe"
-                  className="text-background/70 hover:text-background transition-colors text-sm flex items-center gap-2"
+                  to="/internet-empresarial"
+                  className="text-background/70 hover:text-background transition-colors text-sm"
                 >
-                  <Gift className="w-4 h-4" />
-                  Indique e Ganhe
+                  Internet Empresarial
                 </Link>
               </li>
+              {siteSettings?.indique_ganhe_visible && (
+                <li>
+                  <Link 
+                    to="/indique-e-ganhe"
+                    className="text-background/70 hover:text-background transition-colors text-sm flex items-center gap-2"
+                  >
+                    <Gift className="w-4 h-4" />
+                    Indique e Ganhe
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
 

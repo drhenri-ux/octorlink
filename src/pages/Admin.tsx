@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LogOut, Package, Smartphone, Users, Settings, Gift } from "lucide-react";
+import { LogOut, Package, Smartphone, Users, Settings, Gift, Sliders } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
 import PlansManager from "@/components/admin/PlansManager";
 import AppsManager from "@/components/admin/AppsManager";
 import LeadsManager from "@/components/admin/LeadsManager";
 import ServicesManager from "@/components/admin/ServicesManager";
 import ReferralsManager from "@/components/admin/ReferralsManager";
+import SiteSettingsManager from "@/components/admin/SiteSettingsManager";
 
 const Admin = () => {
   const { user, loading, signOut } = useAuth();
@@ -91,6 +92,10 @@ const Admin = () => {
               <Settings className="w-4 h-4" />
               Serviços
             </TabsTrigger>
+            <TabsTrigger value="site-settings" className="gap-2">
+              <Sliders className="w-4 h-4" />
+              Configurações
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="leads">
@@ -111,6 +116,10 @@ const Admin = () => {
 
           <TabsContent value="services">
             <ServicesManager />
+          </TabsContent>
+
+          <TabsContent value="site-settings">
+            <SiteSettingsManager />
           </TabsContent>
         </Tabs>
       </main>
