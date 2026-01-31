@@ -279,7 +279,7 @@ const InternetEmpresarial = () => {
                   viewport={{ once: true, margin: "-100px" }}
                   variants={fadeInRight}
                 >
-                  <div className="bg-primary/5 border border-primary/20 rounded-2xl p-8">
+                  <div className="bg-secondary/10 border border-secondary/30 rounded-2xl p-8">
                     <div className="w-14 h-14 rounded-xl bg-secondary/20 flex items-center justify-center mb-6">
                       <CheckCircle2 className="w-7 h-7 text-secondary" />
                     </div>
