@@ -183,7 +183,7 @@ const InternetEmpresarial = () => {
   };
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen bg-background">
       <Header />
       <main>
         {/* Hero Section */}
@@ -248,7 +248,7 @@ const InternetEmpresarial = () => {
         </section>
 
         {/* Problem x Solution Section */}
-        <section className="py-20 lg:py-28 bg-muted/30">
+        <section className="py-20 lg:py-28 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -407,7 +407,7 @@ const InternetEmpresarial = () => {
         </section>
 
         {/* Solutions Section */}
-        <section className="py-20 lg:py-28 bg-muted/30">
+        <section className="py-20 lg:py-28 bg-muted/20">
           <div className="container mx-auto px-4">
             <motion.div 
               className="max-w-4xl mx-auto text-center"
