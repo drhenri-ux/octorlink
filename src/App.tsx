@@ -10,6 +10,7 @@ import AdminLogin from "./pages/AdminLogin";
 import Admin from "./pages/Admin";
 import IndiqueGanhe from "./pages/IndiqueGanhe";
 import InternetEmpresarial from "./pages/InternetEmpresarial";
+import Termos from "./pages/Termos";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/indique-e-ganhe" element={<IndiqueGanhe />} />
             <Route path="/internet-empresarial" element={<InternetEmpresarial />} />
+            <Route path="/termos" element={<Termos />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
