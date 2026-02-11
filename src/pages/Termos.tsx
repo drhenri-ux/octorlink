@@ -111,7 +111,7 @@ const Termos = () => {
             <h2>12. CANAIS DE ATENDIMENTO E SUPORTE</h2>
             <p>Para dúvidas, reclamações ou solicitações relacionadas a esta Política de Privacidade, nossos serviços ou o exercício dos seus direitos como titular de dados, entre em contato conosco através dos seguintes canais:</p>
             <ul>
-              <li><strong>E-mail:</strong> contato@octorlink.com</li>
+              <li><strong>E-mail:</strong> app@octorlink.com</li>
               <li><strong>WhatsApp:</strong> +55 (73) 98226-4379</li>
               <li><strong>Horário de atendimento:</strong> Segunda a sexta, das 9h às 18h (horário de Brasília)</li>
             </ul>
