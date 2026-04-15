@@ -142,7 +142,7 @@ const Plans = () => {
             Escolha o plano <span className="text-gradient">ideal</span> para você
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Internet de alta velocidade com o melhor custo-benefício. Todos os planos incluem instalação gratuita.
+            Internet de alta velocidade com o melhor custo-benefício.
           </p>
         </div>
 
