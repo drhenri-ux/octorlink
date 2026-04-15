@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Wifi, MessageCircle } from "lucide-react";
-import octopusMascot from "@/assets/octopus-mascot-new.webp";
+import octopusMascot from "@/assets/octopus-mascot-new2.png";
 
 const Hero = () => {
   return (
