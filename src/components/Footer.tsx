@@ -143,6 +143,9 @@ const Footer = () => {
               Ir ao topo
             </Button>
             <p className="text-background/50 text-sm">
+              Octorlink Telecom Ltda
+            </p>
+            <p className="text-background/50 text-sm">
               CNPJ: 64.076.694/0001-23
             </p>
             <p className="text-background/50 text-sm">
