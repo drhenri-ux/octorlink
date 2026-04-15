@@ -4,11 +4,11 @@ import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const activeCities = [
   { name: "Eunápolis", active: true },
+  { name: "Itabela", active: true },
 ];
 
 const comingSoonCities = [
   { name: "Porto Seguro", active: false },
-  { name: "Itabela", active: false },
   { name: "Camacan", active: false },
   { name: "Itagimirim", active: false },
   { name: "São João do Paraíso", active: false },
