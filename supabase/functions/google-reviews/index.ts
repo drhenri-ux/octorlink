@@ -96,8 +96,8 @@ Deno.serve(async (req) => {
 
     return new Response(JSON.stringify({
       reviews,
-      rating: typeof overallRating !== 'undefined' ? overallRating : 5,
-      totalReviews: typeof totalReviews !== 'undefined' ? totalReviews : 0,
+      rating: overallRating,
+      totalReviews,
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
