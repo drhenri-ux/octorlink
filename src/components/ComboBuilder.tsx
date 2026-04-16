@@ -157,9 +157,9 @@ const ComboBuilder = () => {
             asChild
             size="lg"
             className="font-semibold px-8"
-            style={{ backgroundColor: 'hsla(142, 70%, 45%, 0.6)', color: 'white' }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'hsla(142, 70%, 45%, 0.8)'}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'hsla(142, 70%, 45%, 0.6)'}
+            style={{ backgroundColor: 'hsla(142, 70%, 45%, 0.8)', color: 'white', border: '1px solid hsl(142, 80%, 55%)' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'hsla(142, 70%, 45%, 0.95)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'hsla(142, 70%, 45%, 0.8)'}
           >
             <a
               href="https://wa.me/5573982264379?text=Olá! Gostaria de contratar um combo."
