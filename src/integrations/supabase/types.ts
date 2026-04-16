@@ -71,6 +71,39 @@ export type Database = {
         }
         Relationships: []
       }
+      google_reviews: {
+        Row: {
+          author: string
+          created_at: string
+          google_author_name: string
+          id: string
+          photo_url: string | null
+          rating: number
+          review_text: string
+          time_description: string | null
+        }
+        Insert: {
+          author: string
+          created_at?: string
+          google_author_name: string
+          id?: string
+          photo_url?: string | null
+          rating: number
+          review_text: string
+          time_description?: string | null
+        }
+        Update: {
+          author?: string
+          created_at?: string
+          google_author_name?: string
+          id?: string
+          photo_url?: string | null
+          rating?: number
+          review_text?: string
+          time_description?: string | null
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           bairro: string | null
