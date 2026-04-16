@@ -256,9 +256,9 @@ const Plans = () => {
                         asChild
                         size="lg"
             className="w-full text-sm"
-                        style={{ backgroundColor: 'hsl(142, 70%, 45%)', color: 'white' }}
-                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'hsl(142, 70%, 38%)'}
-                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'hsl(142, 70%, 45%)'}
+                        style={{ backgroundColor: 'hsl(270, 60%, 65%)', color: 'white' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'hsl(270, 60%, 55%)'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'hsl(270, 60%, 65%)'}
                       >
                         <a
                           href={`https://wa.me/5573982264379?text=Olá! Tenho interesse no plano ${plan.name} - ${plan.speed}.`}
