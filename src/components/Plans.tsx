@@ -250,7 +250,7 @@ const Plans = () => {
                         onClick={() => handleAssinar(`${plan.name} - ${plan.speed}`)}
                       >
                         <Zap className="w-4 h-4" />
-                        Assinar Agora
+                        Monte Seu Combo
                       </Button>
                       <Button
                         asChild
