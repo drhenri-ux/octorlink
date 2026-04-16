@@ -62,7 +62,14 @@ const Testimonials = () => {
         const { data, error } = await supabase.functions.invoke("google-reviews");
         if (error) throw error;
         if (data?.reviews?.length > 0) {
-          setReviews(data.reviews);
+          // Combine Google reviews with fallback to fill 8 cards
+          const googleReviews = data.reviews;
+          const combined = [...googleReviews];
+          const remaining = 8 - combined.length;
+          if (remaining > 0) {
+            combined.push(...fallbackTestimonials.slice(0, remaining));
+          }
+          setReviews(combined);
           setOverallRating(data.rating || 5);
           setTotalReviews(data.totalReviews || 0);
           setIsGoogle(true);
