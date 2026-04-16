@@ -18,6 +18,9 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
+  let overallRating = 5
+  let totalReviews = 0
+
   try {
     // 1. Try to fetch fresh reviews from Google and cache them
     if (GOOGLE_API_KEY) {
@@ -32,36 +35,40 @@ Deno.serve(async (req) => {
         const place = searchData.results?.[0]
 
         if (place) {
-          const detailsUrl = new URL('https://maps.googleapis.com/maps/api/place/details/json')
-          detailsUrl.searchParams.set('place_id', place.place_id)
-          detailsUrl.searchParams.set('fields', 'name,rating,user_ratings_total,reviews')
-          detailsUrl.searchParams.set('reviews_sort', 'newest')
-          detailsUrl.searchParams.set('language', GOOGLE_LANGUAGE)
-          detailsUrl.searchParams.set('key', GOOGLE_API_KEY)
+          // Fetch with two different sort orders to get more unique reviews
+          for (const sortOrder of ['newest', 'most_relevant']) {
+            const detailsUrl = new URL('https://maps.googleapis.com/maps/api/place/details/json')
+            detailsUrl.searchParams.set('place_id', place.place_id)
+            detailsUrl.searchParams.set('fields', 'name,rating,user_ratings_total,reviews')
+            detailsUrl.searchParams.set('reviews_sort', sortOrder)
+            detailsUrl.searchParams.set('language', GOOGLE_LANGUAGE)
+            detailsUrl.searchParams.set('key', GOOGLE_API_KEY)
 
-          const detailsRes = await fetch(detailsUrl.toString())
-          const detailsData = await detailsRes.json()
+            const detailsRes = await fetch(detailsUrl.toString())
+            const detailsData = await detailsRes.json()
 
-          if (detailsData.status === 'OK') {
-            const placeDetails = detailsData.result
-            const googleReviews = (placeDetails.reviews || [])
-              .filter((r: any) => r.text && r.text.trim().length > 0)
+            if (detailsData.status === 'OK') {
+              const placeDetails = detailsData.result
+              const googleReviews = (placeDetails.reviews || [])
+                .filter((r: any) => r.text && r.text.trim().length > 0)
 
-            // Upsert reviews into cache table
-            for (const r of googleReviews) {
-              await supabase.from('google_reviews').upsert({
-                author: r.author_name || 'Cliente',
-                photo_url: r.profile_photo_url || null,
-                rating: r.rating || 5,
-                review_text: r.text,
-                time_description: r.relative_time_description || '',
-                google_author_name: r.author_name || 'unknown',
-              }, { onConflict: 'google_author_name,review_text' })
+              for (const r of googleReviews) {
+                await supabase.from('google_reviews').upsert({
+                  author: r.author_name || 'Cliente',
+                  photo_url: r.profile_photo_url || null,
+                  rating: r.rating || 5,
+                  review_text: r.text,
+                  time_description: r.relative_time_description || '',
+                  google_author_name: r.author_name || 'unknown',
+                }, { onConflict: 'google_author_name,review_text' })
+              }
+
+              // Capture overall stats from first call
+              if (sortOrder === 'newest') {
+                overallRating = placeDetails.rating || 0
+                totalReviews = placeDetails.user_ratings_total || 0
+              }
             }
-
-            // Update overall rating info
-            var overallRating = placeDetails.rating || 0
-            var totalReviews = placeDetails.user_ratings_total || 0
           }
         }
       } catch (googleErr) {
@@ -89,8 +96,8 @@ Deno.serve(async (req) => {
 
     return new Response(JSON.stringify({
       reviews,
-      rating: typeof overallRating !== 'undefined' ? overallRating : 5,
-      totalReviews: typeof totalReviews !== 'undefined' ? totalReviews : 0,
+      rating: overallRating,
+      totalReviews,
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
