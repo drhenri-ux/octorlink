@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Wifi, MessageCircle } from "lucide-react";
+import { Wifi } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import octopusMascot from "@/assets/octopus-mascot-new2.png";
 
 const Hero = () => {

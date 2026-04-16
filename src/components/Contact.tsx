@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Phone, MapPin } from "lucide-react";
+import { Phone, MapPin } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 
 const Contact = () => {
   return (
