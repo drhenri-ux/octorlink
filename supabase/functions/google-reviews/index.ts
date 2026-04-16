@@ -18,6 +18,9 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY)
 
+  let overallRating = 5
+  let totalReviews = 0
+
   try {
     // 1. Try to fetch fresh reviews from Google and cache them
     if (GOOGLE_API_KEY) {
