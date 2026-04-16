@@ -58,7 +58,7 @@ const Hero = () => {
                   size="lg" 
                   className="text-sm md:text-base px-6 md:px-10 w-full sm:w-auto"
                 >
-                  <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
+                  <WhatsAppIcon className="w-4 h-4 md:w-5 md:h-5" />
                   Falar com Consultor
                 </Button>
               </a>
