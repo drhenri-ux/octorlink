@@ -42,12 +42,22 @@ const SupportCTA = () => {
               0800 3281 001
             </Button>
             <Button
+              asChild
               size="lg"
-              className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 min-w-[200px]"
-              onClick={handleWhatsApp}
+              className="font-semibold px-8 min-w-[200px]"
+              style={{ backgroundColor: 'hsla(142, 70%, 45%, 0.8)', color: 'white', border: '1px solid hsl(142, 80%, 55%)' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'hsla(142, 70%, 45%, 0.95)'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'hsla(142, 70%, 45%, 0.8)'}
             >
-              <WhatsAppIcon className="w-4 h-4" />
-              WhatsApp
+              <a
+                href="https://wa.me/5573982264379"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2"
+              >
+                <WhatsAppIcon className="w-4 h-4" />
+                WhatsApp
+              </a>
             </Button>
           </div>
         </div>
