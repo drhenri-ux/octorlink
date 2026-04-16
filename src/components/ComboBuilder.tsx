@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Check, Zap } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import LeadCaptureForm from "./LeadCaptureForm";
@@ -141,8 +142,8 @@ const ComboBuilder = () => {
           </div>
         )}
 
-        {/* CTA Button */}
-        <div className="flex justify-center">
+        {/* CTA Buttons */}
+        <div className="flex flex-col items-center gap-3">
           <Button 
             variant="default" 
             size="lg" 
@@ -151,6 +152,20 @@ const ComboBuilder = () => {
           >
             <Zap className="w-4 h-4" />
             Montar Meu Combo Agora
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8"
+          >
+            <a
+              href="https://wa.me/5573982264379?text=Olá! Gostaria de contratar um combo."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <WhatsAppIcon className="w-5 h-5 mr-2" />
+              Contratar pelo WhatsApp
+            </a>
           </Button>
         </div>
       </div>
