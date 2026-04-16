@@ -4,6 +4,8 @@ const corsHeaders = {
 }
 
 const GOOGLE_API_KEY = Deno.env.get('GOOGLE_PLACES_API_KEY')
+const PLACE_QUERY = 'Octorlink Eunápolis'
+const GOOGLE_LANGUAGE = 'pt-BR'
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
@@ -18,16 +20,12 @@ Deno.serve(async (req) => {
   }
 
   try {
-    // First, find the place
-    const searchRes = await fetch('https://places.googleapis.com/v1/places:searchText', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Goog-Api-Key': GOOGLE_API_KEY,
-        'X-Goog-FieldMask': 'places.id,places.displayName,places.rating,places.userRatingCount,places.reviews',
-      },
-      body: JSON.stringify({ textQuery: 'Octorlink Eunápolis' }),
-    })
+    const searchUrl = new URL('https://maps.googleapis.com/maps/api/place/textsearch/json')
+    searchUrl.searchParams.set('query', PLACE_QUERY)
+    searchUrl.searchParams.set('language', GOOGLE_LANGUAGE)
+    searchUrl.searchParams.set('key', GOOGLE_API_KEY)
+
+    const searchRes = await fetch(searchUrl.toString())
 
     if (!searchRes.ok) {
       const errorData = await searchRes.text()
@@ -35,7 +33,11 @@ Deno.serve(async (req) => {
     }
 
     const searchData = await searchRes.json()
-    const place = searchData.places?.[0]
+    if (searchData.status !== 'OK' && searchData.status !== 'ZERO_RESULTS') {
+      throw new Error(`Places text search failed [${searchData.status}]: ${searchData.error_message || 'Unknown error'}`)
+    }
+
+    const place = searchData.results?.[0]
 
     if (!place) {
       return new Response(JSON.stringify({ reviews: [], rating: 0, totalReviews: 0 }), {
@@ -43,18 +45,39 @@ Deno.serve(async (req) => {
       })
     }
 
-    const reviews = (place.reviews || []).map((r: any) => ({
-      author: r.authorAttribution?.displayName || 'Cliente',
-      photoUrl: r.authorAttribution?.photoUri || null,
+    const detailsUrl = new URL('https://maps.googleapis.com/maps/api/place/details/json')
+    detailsUrl.searchParams.set('place_id', place.place_id)
+    detailsUrl.searchParams.set('fields', 'name,rating,user_ratings_total,reviews')
+    detailsUrl.searchParams.set('reviews_sort', 'newest')
+    detailsUrl.searchParams.set('language', GOOGLE_LANGUAGE)
+    detailsUrl.searchParams.set('key', GOOGLE_API_KEY)
+
+    const detailsRes = await fetch(detailsUrl.toString())
+
+    if (!detailsRes.ok) {
+      const errorData = await detailsRes.text()
+      throw new Error(`Place details failed [${detailsRes.status}]: ${errorData}`)
+    }
+
+    const detailsData = await detailsRes.json()
+    if (detailsData.status !== 'OK') {
+      throw new Error(`Place details failed [${detailsData.status}]: ${detailsData.error_message || 'Unknown error'}`)
+    }
+
+    const placeDetails = detailsData.result
+
+    const reviews = (placeDetails.reviews || []).map((r: any) => ({
+      author: r.author_name || 'Cliente',
+      photoUrl: r.profile_photo_url || null,
       rating: r.rating || 5,
-      text: r.text?.text || '',
-      time: r.relativePublishTimeDescription || '',
+      text: r.text || '',
+      time: r.relative_time_description || '',
     }))
 
     return new Response(JSON.stringify({
       reviews,
-      rating: place.rating || 0,
-      totalReviews: place.userRatingCount || 0,
+      rating: placeDetails.rating || 0,
+      totalReviews: placeDetails.user_ratings_total || 0,
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
