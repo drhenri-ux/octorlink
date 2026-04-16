@@ -242,29 +242,32 @@ const Plans = () => {
                       </div>
                     )}
 
-                    <Button
-                      variant={plan.is_popular ? "heroOutline" : "gradient"}
-                      size="lg"
-                      className="w-full mt-auto"
-                      onClick={() => handleAssinar(`${plan.name} - ${plan.speed}`)}
-                    >
-                      <Zap className="w-4 h-4" />
-                      Assinar Agora
-                    </Button>
-                    <Button
-                      asChild
-                      size="lg"
-                      className="w-full bg-green-600 hover:bg-green-700 text-white"
-                    >
-                      <a
-                        href={`https://wa.me/5573982264379?text=Olá! Tenho interesse no plano ${plan.name} - ${plan.speed}.`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <div className="flex flex-col gap-3 mt-auto pt-4">
+                      <Button
+                        variant={plan.is_popular ? "heroOutline" : "gradient"}
+                        size="lg"
+                        className="w-full"
+                        onClick={() => handleAssinar(`${plan.name} - ${plan.speed}`)}
                       >
-                        <WhatsAppIcon className="w-5 h-5 mr-2" />
-                        Contratar pelo WhatsApp
-                      </a>
-                    </Button>
+                        <Zap className="w-4 h-4" />
+                        Assinar Agora
+                      </Button>
+                      <Button
+                        asChild
+                        size="lg"
+                        className="w-full bg-green-600 hover:bg-green-700 text-white text-sm"
+                      >
+                        <a
+                          href={`https://wa.me/5573982264379?text=Olá! Tenho interesse no plano ${plan.name} - ${plan.speed}.`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 shrink-0" />
+                          <span>Contratar pelo WhatsApp</span>
+                        </a>
+                      </Button>
+                    </div>
                   </div>
                 </CarouselItem>
               ))}
