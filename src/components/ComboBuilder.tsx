@@ -151,7 +151,7 @@ const ComboBuilder = () => {
             onClick={() => setShowLeadForm(true)}
           >
             <Zap className="w-4 h-4" />
-            Monte Seu Combo
+            Montar Meu Combo Agora
           </Button>
           <Button
             asChild
