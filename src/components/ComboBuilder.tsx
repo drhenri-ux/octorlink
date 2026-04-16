@@ -151,12 +151,15 @@ const ComboBuilder = () => {
             onClick={() => setShowLeadForm(true)}
           >
             <Zap className="w-4 h-4" />
-            Montar Meu Combo Agora
+            Monte Seu Combo
           </Button>
           <Button
             asChild
             size="lg"
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8"
+            className="font-semibold px-8"
+            style={{ backgroundColor: 'hsl(142, 70%, 45%)', color: 'white' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'hsl(142, 70%, 38%)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'hsl(142, 70%, 45%)'}
           >
             <a
               href="https://wa.me/5573982264379?text=Olá! Gostaria de contratar um combo."

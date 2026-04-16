@@ -255,7 +255,10 @@ const Plans = () => {
                       <Button
                         asChild
                         size="lg"
-                        className="w-full bg-green-600 hover:bg-green-700 text-white text-sm"
+            className="w-full text-sm"
+                        style={{ backgroundColor: 'hsl(142, 70%, 45%)', color: 'white' }}
+                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'hsl(142, 70%, 38%)'}
+                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'hsl(142, 70%, 45%)'}
                       >
                         <a
                           href={`https://wa.me/5573982264379?text=Olá! Tenho interesse no plano ${plan.name} - ${plan.speed}.`}
