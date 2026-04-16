@@ -39,9 +39,9 @@ const Hero = () => {
             </div>
 
             {/* Main heading */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.1] mb-4 md:mb-6 animate-fade-in" style={{ animationDelay: '0.1s', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
-              <span className="block text-white">A Internet Fibra Óptica</span>
-              <span className="block"><span className="text-pink-400 font-extrabold">Mais Rápida</span> <span className="text-white">da Região</span></span>
+            <h1 className="mb-4 md:mb-6 text-[clamp(1.375rem,5.9vw,3.35rem)] font-extrabold leading-[1.02] tracking-[-0.04em] animate-fade-in drop-shadow-lg" style={{ animationDelay: '0.1s' }}>
+              <span className="block whitespace-nowrap text-primary-foreground">A Internet Fibra Óptica</span>
+              <span className="block whitespace-nowrap text-primary-foreground"><span className="text-secondary">Mais Rápida</span> da Região</span>
             </h1>
 
             {/* Description */}
