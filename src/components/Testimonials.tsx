@@ -115,7 +115,7 @@ const Testimonials = () => {
 
         {/* Reviews Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {reviews.slice(0, 8).map((review, index) => (
+          {reviews.filter(r => r.rating === 5 && r.text.trim().length > 0).slice(0, 8).map((review, index) => (
             <div
               key={index}
               className="bg-card rounded-2xl p-6 border border-border shadow-card hover:shadow-glow transition-all duration-500 hover:-translate-y-2 animate-scale-in"
