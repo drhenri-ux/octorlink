@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check, Zap, Star } from "lucide-react";
+import WhatsAppIcon from "@/components/icons/WhatsAppIcon";
 import { supabase } from "@/integrations/supabase/client";
 import LeadCaptureForm from "./LeadCaptureForm";
 import {
@@ -249,6 +250,20 @@ const Plans = () => {
                     >
                       <Zap className="w-4 h-4" />
                       Assinar Agora
+                    </Button>
+                    <Button
+                      asChild
+                      size="lg"
+                      className="w-full bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <a
+                        href={`https://wa.me/5573982264379?text=Olá! Tenho interesse no plano ${plan.name} - ${plan.speed}.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <WhatsAppIcon className="w-5 h-5 mr-2" />
+                        Contratar pelo WhatsApp
+                      </a>
                     </Button>
                   </div>
                 </CarouselItem>
