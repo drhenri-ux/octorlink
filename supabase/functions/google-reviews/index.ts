@@ -67,11 +67,11 @@ Deno.serve(async (req) => {
     const placeDetails = detailsData.result
 
     const reviews = (placeDetails.reviews || [])
-      .filter((r: any) => r.rating === 5 && r.text && r.text.trim().length > 0)
+      .filter((r: any) => r.text && r.text.trim().length > 0)
       .map((r: any) => ({
         author: r.author_name || 'Cliente',
         photoUrl: r.profile_photo_url || null,
-        rating: r.rating,
+        rating: r.rating || 5,
         text: r.text,
         time: r.relative_time_description || '',
       }))

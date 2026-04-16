@@ -10,37 +10,6 @@ interface GoogleReview {
   time: string;
 }
 
-const fallbackTestimonials = [
-  {
-    author: "Maria Silva",
-    rating: 5,
-    text: "Melhor internet que já tive! Trabalho de casa e preciso de estabilidade. A Octorlink nunca me deixou na mão. Recomendo demais!",
-    time: "",
-    photoUrl: null,
-  },
-  {
-    author: "João Santos",
-    rating: 5,
-    text: "Ping baixíssimo e zero quedas. Finalmente consigo jogar online sem lag. A instalação foi super rápida e o técnico muito profissional.",
-    time: "",
-    photoUrl: null,
-  },
-  {
-    author: "Ana Costa",
-    rating: 5,
-    text: "Perfeita para assistir aulas online e fazer videochamadas. O Wi-Fi pega em toda a casa. Preço justo e qualidade excelente!",
-    time: "",
-    photoUrl: null,
-  },
-  {
-    author: "Carlos Oliveira",
-    rating: 5,
-    text: "Preciso enviar arquivos pesados diariamente. Com a Octorlink, o upload é incrivelmente rápido. Mudou minha produtividade!",
-    time: "",
-    photoUrl: null,
-  },
-];
-
 const getInitials = (name: string) => {
   return name
     .split(" ")
@@ -51,7 +20,7 @@ const getInitials = (name: string) => {
 };
 
 const Testimonials = () => {
-  const [reviews, setReviews] = useState<GoogleReview[]>(fallbackTestimonials);
+  const [reviews, setReviews] = useState<GoogleReview[]>([]);
   const [overallRating, setOverallRating] = useState(5);
   const [totalReviews, setTotalReviews] = useState(0);
   const [isGoogle, setIsGoogle] = useState(false);
@@ -62,24 +31,19 @@ const Testimonials = () => {
         const { data, error } = await supabase.functions.invoke("google-reviews");
         if (error) throw error;
         if (data?.reviews?.length > 0) {
-          // Combine Google reviews with fallback to fill 8 cards
-          const googleReviews = data.reviews;
-          const combined = [...googleReviews];
-          const remaining = 8 - combined.length;
-          if (remaining > 0) {
-            combined.push(...fallbackTestimonials.slice(0, remaining));
-          }
-          setReviews(combined);
+          setReviews(data.reviews);
           setOverallRating(data.rating || 5);
           setTotalReviews(data.totalReviews || 0);
           setIsGoogle(true);
         }
       } catch (err) {
-        console.warn("Usando depoimentos estáticos:", err);
+        console.warn("Erro ao buscar avaliações do Google:", err);
       }
     };
     fetchReviews();
   }, []);
+
+  if (reviews.length === 0) return null;
 
   return (
     <section id="depoimentos" className="py-20 lg:py-32 bg-muted/50">
@@ -87,12 +51,12 @@ const Testimonials = () => {
         {/* Header */}
         <div className="text-center mb-12 md:mb-16 animate-fade-in">
           <span className="inline-block bg-primary/10 text-primary font-semibold px-4 py-2 rounded-full text-sm mb-4">
-            {isGoogle ? "Avaliações do Google" : "Depoimentos"}
+            Avaliações do Google
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
             O que nossos <span className="text-gradient">clientes</span> dizem
           </h2>
-          {isGoogle && totalReviews > 0 ? (
+          {totalReviews > 0 && (
             <div className="flex items-center justify-center gap-2 mb-2">
               <div className="flex gap-0.5">
                 {[1, 2, 3, 4, 5].map((i) => (
@@ -113,16 +77,12 @@ const Testimonials = () => {
                 ({totalReviews} avaliações)
               </span>
             </div>
-          ) : (
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Milhares de clientes satisfeitos em toda a região. Veja o que eles têm a dizer sobre a Octorlink.
-            </p>
           )}
         </div>
 
         {/* Reviews Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {reviews.filter(r => r.rating === 5 && r.text.trim().length > 0).slice(0, 8).map((review, index) => (
+          {reviews.slice(0, 8).map((review, index) => (
             <div
               key={index}
               className="bg-card rounded-2xl p-6 border border-border shadow-card hover:shadow-glow transition-all duration-500 hover:-translate-y-2 animate-scale-in"
@@ -175,18 +135,16 @@ const Testimonials = () => {
         </div>
 
         {/* Google attribution */}
-        {isGoogle && (
-          <div className="text-center mt-8">
-            <a
-              href="https://g.page/r/CS1RddmEvN9NEBM/review"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              Ver todas as avaliações no Google →
-            </a>
-          </div>
-        )}
+        <div className="text-center mt-8">
+          <a
+            href="https://g.page/r/CS1RddmEvN9NEBM/review"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            Ver todas as avaliações no Google →
+          </a>
+        </div>
       </div>
     </section>
   );
