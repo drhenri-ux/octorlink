@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import Plans from "@/components/Plans";
+import Octorlink5G from "@/components/Octorlink5G";
 import ComboBuilder from "@/components/ComboBuilder";
 import BusinessSolutions from "@/components/BusinessSolutions";
 import TechnicalDetails from "@/components/TechnicalDetails";
@@ -22,6 +23,7 @@ const Index = () => {
         <WhyChooseUs />
         <Plans />
         <Comparison />
+        <Octorlink5G />
         <ComboBuilder />
         <BusinessSolutions />
         <TechnicalDetails />
