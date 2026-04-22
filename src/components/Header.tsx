@@ -15,6 +15,7 @@ const Header = () => {
   const navLinks = [
     { label: "Início", href: "#inicio", sectionId: "inicio", type: "scroll" },
     { label: "Planos", href: "#planos", sectionId: "planos", type: "scroll" },
+    { label: "Octorlink 5G+", href: "#octorlink-5g", sectionId: "octorlink-5g", type: "scroll" },
     { label: "Empresa", href: "/internet-empresarial", sectionId: "", type: "link" },
     { label: "Contato", href: "#contato", sectionId: "contato", type: "scroll" },
   ];
@@ -100,7 +101,7 @@ const Header = () => {
             className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
             asChild
           >
-            <a href="https://31364.ixcsoft.com/central_assinante_web/login" target="_blank" rel="noopener noreferrer">
+            <a href="https://ixc.octorlink.com/central-assinante/" target="_blank" rel="noopener noreferrer">
               <User className="w-4 h-4 mr-2" />
               Área do Cliente
             </a>
@@ -162,7 +163,7 @@ const Header = () => {
                 className="w-full justify-start text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                 asChild
               >
-                <a href="https://31364.ixcsoft.com/central_assinante_web/login" target="_blank" rel="noopener noreferrer">
+                <a href="https://ixc.octorlink.com/central-assinante/" target="_blank" rel="noopener noreferrer">
                   <User className="w-4 h-4 mr-2" />
                   Área do Cliente
                 </a>
