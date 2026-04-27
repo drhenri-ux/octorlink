@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Check, Signal } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const benefits = [
   "WhatsApp sem descontar da franquia",
@@ -12,13 +13,6 @@ const benefits = [
 ];
 
 const Octorlink5G = () => {
-  const handleSaibaMais = () => {
-    const message = encodeURIComponent(
-      "Olá! Quero saber mais sobre o plano Octorlink 5G+."
-    );
-    window.open(`https://wa.me/5573988221344?text=${message}`, "_blank");
-  };
-
   return (
     <section id="octorlink-5g" className="py-16 md:py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
@@ -56,8 +50,8 @@ const Octorlink5G = () => {
 
           <div className="flex justify-center">
             <Button
+              asChild
               size="lg"
-              onClick={handleSaibaMais}
               className="text-white font-semibold transition-all"
               style={{
                 backgroundColor: "hsla(142, 70%, 45%, 0.8)",
@@ -70,7 +64,7 @@ const Octorlink5G = () => {
                 e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 0.8)";
               }}
             >
-              Saiba mais
+              <Link to="/octorlink-5g">Saiba mais</Link>
             </Button>
           </div>
         </div>
