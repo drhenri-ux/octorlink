@@ -15,7 +15,7 @@ const Header = () => {
   const navLinks = [
     { label: "Início", href: "#inicio", sectionId: "inicio", type: "scroll" },
     { label: "Planos", href: "#planos", sectionId: "planos", type: "scroll" },
-    { label: "Octorlink 5G+", href: "#octorlink-5g", sectionId: "octorlink-5g", type: "scroll" },
+    { label: "Octorlink 5G+", href: "/octorlink-5g", sectionId: "", type: "link" },
     { label: "Empresa", href: "/internet-empresarial", sectionId: "", type: "link" },
     { label: "Contato", href: "#contato", sectionId: "contato", type: "scroll" },
   ];
