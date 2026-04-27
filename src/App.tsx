@@ -12,6 +12,7 @@ import IndiqueGanhe from "./pages/IndiqueGanhe";
 import InternetEmpresarial from "./pages/InternetEmpresarial";
 import Termos from "./pages/Termos";
 import Octorlink5GPage from "./pages/Octorlink5GPage";
+import RastreadorVeicularPage from "./pages/RastreadorVeicularPage";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/internet-empresarial" element={<InternetEmpresarial />} />
             <Route path="/termos" element={<Termos />} />
             <Route path="/octorlink-5g" element={<Octorlink5GPage />} />
+            <Route path="/rastreador-veicular" element={<RastreadorVeicularPage />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
