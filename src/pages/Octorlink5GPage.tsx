@@ -15,45 +15,65 @@ const benefits = [
   { icon: Globe, title: "Roaming nacional", desc: "Use seu plano em todo o território brasileiro." },
 ];
 
-// Placeholder plans — atualize com os valores oficiais quando disponíveis
 const plans = [
   {
-    name: "5G+ Start",
-    data: "15 GB",
-    price: "29,90",
+    name: "Plano 14GB",
+    data: "14 GB",
+    price: "59,90",
     highlight: false,
     features: [
-      "15 GB de internet 4G/5G",
+      "14 GB de internet 4G/5G",
+      "Minutos ilimitados",
+      "100 SMS",
       "WhatsApp ilimitado",
-      "Ligações e SMS ilimitados",
-      "Cobertura nacional",
     ],
   },
   {
-    name: "5G+ Plus",
-    data: "30 GB",
-    price: "49,90",
+    name: "Plano 21GB",
+    data: "21 GB",
+    price: "69,90",
+    highlight: false,
+    features: [
+      "21 GB de internet 4G/5G",
+      "Minutos ilimitados",
+      "100 SMS",
+      "WhatsApp ilimitado",
+    ],
+  },
+  {
+    name: "Plano 29GB",
+    data: "29 GB",
+    price: "79,90",
     highlight: true,
     features: [
-      "30 GB de internet 4G/5G",
+      "29 GB de internet 4G/5G",
+      "Minutos ilimitados",
+      "100 SMS",
       "WhatsApp ilimitado",
-      "Ligações e SMS ilimitados",
-      "+1 GB de bônus na portabilidade",
-      "Roaming nacional",
     ],
   },
   {
-    name: "5G+ Max",
-    data: "60 GB",
-    price: "79,90",
+    name: "Plano 39GB",
+    data: "39 GB",
+    price: "89,90",
     highlight: false,
     features: [
-      "60 GB de internet 4G/5G",
+      "39 GB de internet 4G/5G",
+      "Minutos ilimitados",
+      "100 SMS",
       "WhatsApp ilimitado",
-      "Ligações e SMS ilimitados",
-      "+1 GB de bônus na portabilidade",
-      "Desconto R$10 para clientes Octorlink Fibra",
-      "Roaming nacional",
+    ],
+  },
+  {
+    name: "Plano 44GB",
+    data: "44 GB",
+    price: "99,90",
+    highlight: false,
+    features: [
+      "44 GB de internet 4G/5G",
+      "Minutos ilimitados",
+      "100 SMS",
+      "WhatsApp ilimitado",
     ],
   },
 ];
@@ -168,7 +188,7 @@ const Octorlink5GPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {plans.map((plan) => (
                 <div
                   key={plan.name}
