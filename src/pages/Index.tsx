@@ -12,6 +12,7 @@ import Comparison from "@/components/Comparison";
 import Testimonials from "@/components/Testimonials";
 import SupportCTA from "@/components/SupportCTA";
 import Contact from "@/components/Contact";
+import RastreadorVeicularPromo from "@/components/RastreadorVeicularPromo";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -33,6 +34,7 @@ const Index = () => {
         <Testimonials />
         <SupportCTA />
         <Contact />
+        <RastreadorVeicularPromo />
       </main>
       <Footer />
       <WhatsAppButton />
