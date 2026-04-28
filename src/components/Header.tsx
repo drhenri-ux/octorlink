@@ -16,7 +16,7 @@ const Header = () => {
     { label: "Início", href: "#inicio", sectionId: "inicio", type: "scroll" },
     { label: "Planos", href: "#planos", sectionId: "planos", type: "scroll" },
     { label: "Octorlink 5G+", href: "/octorlink-5g", sectionId: "", type: "link" },
-    { label: "Rastreador Veicular", href: "/rastreador-veicular", sectionId: "", type: "link" },
+    { label: "Octorlink Tracker", href: "/octorlink-tracker", sectionId: "", type: "link" },
     { label: "Empresa", href: "/internet-empresarial", sectionId: "", type: "link" },
     { label: "Contato", href: "#contato", sectionId: "contato", type: "scroll" },
   ];

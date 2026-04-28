@@ -29,6 +29,7 @@ const App = () => (
             <Route path="/internet-empresarial" element={<InternetEmpresarial />} />
             <Route path="/termos" element={<Termos />} />
             <Route path="/octorlink-5g" element={<Octorlink5GPage />} />
+            <Route path="/octorlink-tracker" element={<RastreadorVeicularPage />} />
             <Route path="/rastreador-veicular" element={<RastreadorVeicularPage />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<Admin />} />

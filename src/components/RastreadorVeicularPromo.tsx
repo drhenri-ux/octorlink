@@ -22,10 +22,10 @@ const RastreadorVeicularPromo = () => {
                 <span className="text-xs font-bold text-white uppercase tracking-wide">Novo serviço</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                Rastreador Veicular <span style={{ color: "hsl(var(--pink-glow))" }}>Octorlink</span>
+                Octorlink <span style={{ color: "hsl(var(--pink-glow))" }}>Tracker</span>
               </h2>
               <p className="text-white/90 text-base md:text-lg mb-6">
-                Proteção e monitoramento 24h para o seu carro, moto ou frota. Rastreamento em tempo real, bloqueio remoto e suporte completo.
+                Proteção e monitoramento 24h para o seu carro, moto ou frota com o Octorlink Tracker. Rastreamento em tempo real, bloqueio remoto e suporte completo.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button
@@ -39,14 +39,14 @@ const RastreadorVeicularPromo = () => {
                   onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 1)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 0.9)"; }}
                 >
-                  <Link to="/rastreador-veicular">Conhecer o serviço</Link>
+                  <Link to="/octorlink-tracker">Conhecer o serviço</Link>
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   className="bg-white/10 text-white border-white/30 hover:bg-white/20 hover:text-white"
                   onClick={() => {
-                    const message = encodeURIComponent("Olá! Tenho interesse no Rastreador Veicular Octorlink.");
+                    const message = encodeURIComponent("Olá! Tenho interesse no Octorlink Tracker.");
                     window.open(`https://wa.me/5573988221344?text=${message}`, "_blank");
                   }}
                 >

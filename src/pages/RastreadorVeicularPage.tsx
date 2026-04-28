@@ -73,12 +73,12 @@ const plans = [
 const RastreadorVeicularPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Rastreador Veicular | Octorlink — Proteção 24h para seu veículo";
+    document.title = "Octorlink Tracker — Proteção 24h para seu veículo";
   }, []);
 
   const handleWhatsApp = (subject: string) => {
     const message = encodeURIComponent(
-      `Olá! Tenho interesse no Rastreador Veicular Octorlink — ${subject}.`
+      `Olá! Tenho interesse no Octorlink Tracker — ${subject}.`
     );
     window.open(`https://wa.me/5573988221344?text=${message}`, "_blank");
   };
@@ -100,10 +100,10 @@ const RastreadorVeicularPage = () => {
               <span className="text-sm font-semibold text-white">Novo serviço Octorlink</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-              Rastreador <span style={{ color: "hsl(var(--pink-glow))" }}>Veicular</span>
+              Octorlink <span style={{ color: "hsl(var(--pink-glow))" }}>Tracker</span>
             </h1>
             <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-8">
-              Proteção, monitoramento e gestão para o seu veículo ou frota — 24 horas por dia, com a tecnologia e o suporte Octorlink.
+              Proteção, monitoramento e gestão para o seu veículo ou frota — 24 horas por dia, com a tecnologia e o suporte do Octorlink Tracker.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button
@@ -274,7 +274,7 @@ const RastreadorVeicularPage = () => {
               Proteja seu veículo agora mesmo
             </h2>
             <p className="text-white/90 mb-8 max-w-xl mx-auto">
-              Fale com nossa equipe e descubra a melhor solução de rastreamento Octorlink para você ou sua empresa.
+              Fale com nossa equipe e descubra a melhor solução do Octorlink Tracker para você ou sua empresa.
             </p>
             <Button
               size="lg"
