@@ -4,6 +4,7 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import Plans from "@/components/Plans";
 import Octorlink5G from "@/components/Octorlink5G";
 import Octorlink5GPlans from "@/components/Octorlink5GPlans";
+import OctorlinkTurboPlans from "@/components/OctorlinkTurboPlans";
 import ComboBuilder from "@/components/ComboBuilder";
 import BusinessSolutions from "@/components/BusinessSolutions";
 import TechnicalDetails from "@/components/TechnicalDetails";
@@ -27,6 +28,7 @@ const Index = () => {
         <Comparison />
         <Octorlink5G />
         <Octorlink5GPlans />
+        <OctorlinkTurboPlans />
         <ComboBuilder />
         <BusinessSolutions />
         <TechnicalDetails />
