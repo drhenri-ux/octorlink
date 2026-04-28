@@ -26,10 +26,10 @@ const Index = () => {
         <WhyChooseUs />
         <Plans />
         <ComboBuilder />
+        <Comparison />
         <Octorlink5G />
         <Octorlink5GPlans />
         <OctorlinkTurboPlans />
-        <Comparison />
         <BusinessSolutions />
         <TechnicalDetails />
         <RegionalCoverage />
