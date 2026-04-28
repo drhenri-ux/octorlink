@@ -185,6 +185,48 @@ export type Database = {
         }
         Relationships: []
       }
+      octorlink_5g_plans: {
+        Row: {
+          badge_text: string | null
+          created_at: string
+          features: string[]
+          id: string
+          is_active: boolean
+          is_popular: boolean
+          metadata: Json
+          name: string
+          price: number | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          badge_text?: string | null
+          created_at?: string
+          features?: string[]
+          id?: string
+          is_active?: boolean
+          is_popular?: boolean
+          metadata?: Json
+          name: string
+          price?: number | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          badge_text?: string | null
+          created_at?: string
+          features?: string[]
+          id?: string
+          is_active?: boolean
+          is_popular?: boolean
+          metadata?: Json
+          name?: string
+          price?: number | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       plan_apps: {
         Row: {
           app_id: string
@@ -316,6 +358,90 @@ export type Database = {
           created_at?: string
           id?: string
           indique_ganhe_visible?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tracker_plans: {
+        Row: {
+          badge_text: string | null
+          created_at: string
+          features: string[]
+          id: string
+          is_active: boolean
+          is_popular: boolean
+          metadata: Json
+          name: string
+          price: number | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          badge_text?: string | null
+          created_at?: string
+          features?: string[]
+          id?: string
+          is_active?: boolean
+          is_popular?: boolean
+          metadata?: Json
+          name: string
+          price?: number | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          badge_text?: string | null
+          created_at?: string
+          features?: string[]
+          id?: string
+          is_active?: boolean
+          is_popular?: boolean
+          metadata?: Json
+          name?: string
+          price?: number | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      turbo_plans: {
+        Row: {
+          badge_text: string | null
+          created_at: string
+          features: string[]
+          id: string
+          is_active: boolean
+          is_popular: boolean
+          metadata: Json
+          name: string
+          price: number | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          badge_text?: string | null
+          created_at?: string
+          features?: string[]
+          id?: string
+          is_active?: boolean
+          is_popular?: boolean
+          metadata?: Json
+          name: string
+          price?: number | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          badge_text?: string | null
+          created_at?: string
+          features?: string[]
+          id?: string
+          is_active?: boolean
+          is_popular?: boolean
+          metadata?: Json
+          name?: string
+          price?: number | null
+          sort_order?: number
           updated_at?: string
         }
         Relationships: []
