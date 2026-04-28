@@ -6,6 +6,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
@@ -123,7 +125,7 @@ const OctorlinkTurboPlans = () => {
         </div>
 
         {/* Mobile: carousel com autoplay em loop */}
-        <div className="md:hidden max-w-sm mx-auto">
+        <div className="md:hidden max-w-xs mx-auto px-10 relative">
           <Carousel
             opts={{ loop: true, align: "center" }}
             plugins={[
@@ -137,6 +139,8 @@ const OctorlinkTurboPlans = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
+            <CarouselPrevious className="-left-2" />
+            <CarouselNext className="-right-2" />
           </Carousel>
         </div>
       </div>
