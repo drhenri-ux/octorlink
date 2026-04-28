@@ -125,7 +125,7 @@ const OctorlinkTurboPlans = () => {
         </div>
 
         {/* Mobile: carousel com autoplay em loop */}
-        <div className="md:hidden max-w-xs mx-auto px-10 relative">
+        <div className="md:hidden max-w-sm mx-auto">
           <Carousel
             opts={{ loop: true, align: "center" }}
             plugins={[
@@ -139,8 +139,10 @@ const OctorlinkTurboPlans = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="-left-2" />
-            <CarouselNext className="-right-2" />
+            <div className="flex justify-center gap-4 mt-6">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
           </Carousel>
         </div>
       </div>
