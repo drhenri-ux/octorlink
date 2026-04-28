@@ -140,7 +140,7 @@ const Octorlink5GPlans = () => {
         </div>
 
         {/* Mobile: carrossel com setas e autoplay em loop */}
-        <div className="sm:hidden max-w-xs mx-auto px-10 relative">
+        <div className="sm:hidden max-w-sm mx-auto">
           <Carousel
             opts={{ loop: true, align: "center" }}
             plugins={[
@@ -154,8 +154,10 @@ const Octorlink5GPlans = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="-left-2" />
-            <CarouselNext className="-right-2" />
+            <div className="flex justify-center gap-4 mt-6">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
+            </div>
           </Carousel>
         </div>
 
