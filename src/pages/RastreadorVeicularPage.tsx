@@ -3,8 +3,8 @@ import { Check, MapPin, Lock, Bell, History, Shield, Smartphone, Phone, Truck, C
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const benefits = [
   { icon: MapPin, title: "Rastreamento em tempo real", desc: "Acompanhe a localização do seu veículo 24h por dia, com atualização contínua." },
@@ -24,56 +24,30 @@ const fleetFeatures = [
   { icon: Car, title: "Manutenção preventiva", desc: "Alertas de manutenção por quilometragem e horas de uso." },
 ];
 
-const plans = [
-  {
-    name: "Pessoal",
-    target: "Carros e motos",
-    price: "59,90",
-    highlight: false,
-    features: [
-      "Rastreamento em tempo real",
-      "Bloqueio remoto via app",
-      "Histórico de trajetos (30 dias)",
-      "Cerca virtual",
-      "App iOS e Android",
-      "Suporte técnico",
-    ],
-  },
-  {
-    name: "Premium",
-    target: "Proteção completa",
-    price: "89,90",
-    highlight: true,
-    features: [
-      "Tudo do plano Pessoal",
-      "Botão de pânico",
-      "Central de monitoramento 24h",
-      "Histórico estendido (90 dias)",
-      "Alertas inteligentes ilimitados",
-      "Atendimento prioritário",
-    ],
-  },
-  {
-    name: "Frota",
-    target: "Empresas e gestores",
-    price: "Sob consulta",
-    highlight: false,
-    isQuote: true,
-    features: [
-      "Gestão multi-veículos",
-      "Telemetria e relatórios",
-      "Identificação de motorista",
-      "Manutenção preventiva",
-      "Integração com sistemas",
-      "Gerente de conta dedicado",
-    ],
-  },
-];
+interface TrackerPlan {
+  id: string;
+  name: string;
+  price: number | null;
+  badge_text: string | null;
+  features: string[];
+  metadata: Record<string, any> | null;
+  is_popular: boolean;
+}
 
 const RastreadorVeicularPage = () => {
+  const [plans, setPlans] = useState<TrackerPlan[]>([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Octorlink Tracker — Proteção 24h para seu veículo";
+    supabase
+      .from("tracker_plans")
+      .select("id, name, price, badge_text, features, metadata, is_popular")
+      .eq("is_active", true)
+      .order("sort_order")
+      .then(({ data }) => {
+        if (data) setPlans(data as unknown as TrackerPlan[]);
+      });
   }, []);
 
   const handleWhatsApp = (subject: string) => {
@@ -211,54 +185,61 @@ const RastreadorVeicularPage = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {plans.map((plan) => (
-                <div
-                  key={plan.name}
-                  className={`relative rounded-2xl p-6 md:p-8 border transition-all hover:-translate-y-1 ${
-                    plan.highlight ? "shadow-xl border-secondary/40" : "bg-card border-border shadow-md"
-                  }`}
-                  style={plan.highlight ? { background: "var(--gradient-primary)", color: "white", boxShadow: "var(--shadow-glow)" } : {}}
-                >
-                  {plan.highlight && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-primary text-xs font-bold px-3 py-1 rounded-full shadow">
-                      MAIS COMPLETO
-                    </span>
-                  )}
-                  <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? "text-white" : "text-foreground"}`}>{plan.name}</h3>
-                  <p className={`text-sm mb-4 ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>{plan.target}</p>
-                  <div className="mb-6">
-                    {plan.isQuote ? (
-                      <span className={`text-2xl font-extrabold ${plan.highlight ? "text-white" : "text-foreground"}`}>{plan.price}</span>
-                    ) : (
-                      <>
-                        <span className={`text-sm ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>R$</span>
-                        <span className={`text-4xl md:text-5xl font-extrabold ml-1 ${plan.highlight ? "text-white" : "text-foreground"}`}>{plan.price}</span>
-                        <span className={`text-sm ml-1 ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>/mês</span>
-                      </>
-                    )}
-                  </div>
-
-                  <ul className="space-y-2 mb-8">
-                    {plan.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm">
-                        <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.highlight ? "text-white" : "text-secondary"}`} strokeWidth={3} />
-                        <span className={plan.highlight ? "text-white/95" : "text-foreground/90"}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button
-                    size="lg"
-                    onClick={() => handleWhatsApp(`plano ${plan.name}`)}
-                    className="w-full text-white font-semibold transition-all"
-                    style={greenBtn}
-                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 1)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 0.85)"; }}
+              {plans.map((plan) => {
+                const isQuote = plan.metadata?.is_consultation === true || plan.price === null || plan.price === 0;
+                const target = plan.badge_text || plan.metadata?.vehicle_type || "";
+                const priceFormatted = plan.price?.toFixed(2).replace(".", ",");
+                return (
+                  <div
+                    key={plan.id}
+                    className={`relative rounded-2xl p-6 md:p-8 border transition-all hover:-translate-y-1 ${
+                      plan.is_popular ? "shadow-xl border-secondary/40" : "bg-card border-border shadow-md"
+                    }`}
+                    style={plan.is_popular ? { background: "var(--gradient-primary)", color: "white", boxShadow: "var(--shadow-glow)" } : {}}
                   >
-                    {plan.isQuote ? "Solicitar orçamento" : `Contratar ${plan.name}`}
-                  </Button>
-                </div>
-              ))}
+                    {plan.is_popular && (
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-primary text-xs font-bold px-3 py-1 rounded-full shadow">
+                        MAIS COMPLETO
+                      </span>
+                    )}
+                    <h3 className={`text-xl font-bold mb-1 ${plan.is_popular ? "text-white" : "text-foreground"}`}>{plan.name}</h3>
+                    {target && (
+                      <p className={`text-sm mb-4 ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>{target}</p>
+                    )}
+                    <div className="mb-6">
+                      {isQuote ? (
+                        <span className={`text-2xl font-extrabold ${plan.is_popular ? "text-white" : "text-foreground"}`}>Sob consulta</span>
+                      ) : (
+                        <>
+                          <span className={`text-sm ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>R$</span>
+                          <span className={`text-4xl md:text-5xl font-extrabold ml-1 ${plan.is_popular ? "text-white" : "text-foreground"}`}>{priceFormatted}</span>
+                          <span className={`text-sm ml-1 ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>/mês</span>
+                        </>
+                      )}
+                    </div>
+
+                    <ul className="space-y-2 mb-8">
+                      {plan.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2 text-sm">
+                          <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.is_popular ? "text-white" : "text-secondary"}`} strokeWidth={3} />
+                          <span className={plan.is_popular ? "text-white/95" : "text-foreground/90"}>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Button
+                      size="lg"
+                      onClick={() => handleWhatsApp(`plano ${plan.name}`)}
+                      className="w-full text-white font-semibold transition-all"
+                      style={greenBtn}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 1)"; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 0.85)"; }}
+                    >
+                      {isQuote ? "Solicitar orçamento" : `Contratar ${plan.name}`}
+                    </Button>
+                  </div>
+                );
+              })}
             </div>
 
             <p className="text-center text-xs text-muted-foreground mt-8 max-w-2xl mx-auto">
