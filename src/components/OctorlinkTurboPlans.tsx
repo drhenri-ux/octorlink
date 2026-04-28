@@ -111,12 +111,6 @@ const OctorlinkTurboPlans = () => {
             );
           })}
         </div>
-
-        <p className="text-xs text-muted-foreground text-center max-w-3xl mx-auto mt-8 leading-relaxed">
-          <strong>Promoção Turbo:</strong> Os planos estão com condições promocionais
-          disponíveis para recargas feitas até 28/02/2026. Recargas após essa data não terão
-          promoção. Consulte condições.
-        </p>
       </div>
     </section>
   );
