@@ -25,10 +25,10 @@ const Index = () => {
         <Hero />
         <WhyChooseUs />
         <Plans />
+        <ComboBuilder />
         <Octorlink5G />
         <Octorlink5GPlans />
         <OctorlinkTurboPlans />
-        <ComboBuilder />
         <Comparison />
         <BusinessSolutions />
         <TechnicalDetails />
