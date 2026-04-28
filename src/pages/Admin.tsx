@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LogOut, Package, Smartphone, Users, Settings, Gift, Sliders } from "lucide-react";
+import { LogOut, Package, Smartphone, Users, Settings, Gift, Sliders, Signal, Car, Zap } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
 import PlansManager from "@/components/admin/PlansManager";
 import AppsManager from "@/components/admin/AppsManager";
@@ -11,6 +11,7 @@ import LeadsManager from "@/components/admin/LeadsManager";
 import ServicesManager from "@/components/admin/ServicesManager";
 import ReferralsManager from "@/components/admin/ReferralsManager";
 import SiteSettingsManager from "@/components/admin/SiteSettingsManager";
+import ProductPlansManager from "@/components/admin/ProductPlansManager";
 
 const Admin = () => {
   const { user, loading, signOut } = useAuth();
@@ -84,6 +85,18 @@ const Admin = () => {
               <Package className="w-4 h-4" />
               Planos
             </TabsTrigger>
+            <TabsTrigger value="plans-5g" className="gap-2">
+              <Signal className="w-4 h-4" />
+              5G+
+            </TabsTrigger>
+            <TabsTrigger value="plans-tracker" className="gap-2">
+              <Car className="w-4 h-4" />
+              Tracker
+            </TabsTrigger>
+            <TabsTrigger value="plans-turbo" className="gap-2">
+              <Zap className="w-4 h-4" />
+              Turbo
+            </TabsTrigger>
             <TabsTrigger value="apps" className="gap-2">
               <Smartphone className="w-4 h-4" />
               Aplicativos
@@ -108,6 +121,30 @@ const Admin = () => {
 
           <TabsContent value="plans">
             <PlansManager />
+          </TabsContent>
+
+          <TabsContent value="plans-5g">
+            <ProductPlansManager
+              table="octorlink_5g_plans"
+              title="Planos Octorlink 5G+"
+              metadataHint='{"data": "29 GB"}'
+            />
+          </TabsContent>
+
+          <TabsContent value="plans-tracker">
+            <ProductPlansManager
+              table="tracker_plans"
+              title="Planos Octorlink Tracker"
+              metadataHint='{"vehicle_type": "Carro/Moto", "is_consultation": false}'
+            />
+          </TabsContent>
+
+          <TabsContent value="plans-turbo">
+            <ProductPlansManager
+              table="turbo_plans"
+              title="Planos TURBO de Telefonia"
+              metadataHint='{"franquia": "58GB", "base": "39GB + 19GB Bônus", "subtitle": "+100 SMS + 1GB Portabilidade"}'
+            />
           </TabsContent>
 
           <TabsContent value="apps">
