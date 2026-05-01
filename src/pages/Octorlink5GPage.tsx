@@ -5,6 +5,14 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const benefits = [
   { icon: MessageSquare, title: "WhatsApp ilimitado", desc: "Sem descontar da sua franquia de internet." },
@@ -90,6 +98,72 @@ const Octorlink5GPage = () => {
     );
     window.open(`https://wa.me/5573988221344?text=${message}`, "_blank");
   };
+
+  const renderPlanCard = (plan: typeof plans[number]) => (
+    <div
+      key={plan.name}
+      className={`relative rounded-2xl p-6 md:p-8 border transition-all hover:-translate-y-1 h-full ${
+        plan.highlight
+          ? "shadow-xl border-secondary/40"
+          : "bg-card border-border shadow-md"
+      }`}
+      style={
+        plan.highlight
+          ? {
+              background: "var(--gradient-primary)",
+              color: "white",
+              boxShadow: "var(--shadow-glow)",
+            }
+          : {}
+      }
+    >
+      {plan.highlight && (
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-primary text-xs font-bold px-3 py-1 rounded-full shadow">
+          MAIS POPULAR
+        </span>
+      )}
+      <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? "text-white" : "text-foreground"}`}>
+        {plan.name}
+      </h3>
+      <p className={`text-sm mb-4 ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>
+        {plan.data} de internet
+      </p>
+      <div className="mb-6">
+        <span className={`text-sm ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>R$</span>
+        <span className={`text-4xl md:text-5xl font-extrabold ml-1 ${plan.highlight ? "text-white" : "text-foreground"}`}>
+          {plan.price}
+        </span>
+        <span className={`text-sm ml-1 ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>/mês</span>
+      </div>
+
+      <ul className="space-y-2 mb-8">
+        {plan.features.map((f) => (
+          <li key={f} className="flex items-start gap-2 text-sm">
+            <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.highlight ? "text-white" : "text-secondary"}`} strokeWidth={3} />
+            <span className={plan.highlight ? "text-white/95" : "text-foreground/90"}>{f}</span>
+          </li>
+        ))}
+      </ul>
+
+      <Button
+        size="lg"
+        onClick={() => handleAssinar(plan.name)}
+        className="w-full text-white font-semibold transition-all"
+        style={{
+          backgroundColor: "hsla(142, 70%, 45%, 0.85)",
+          border: "1px solid hsl(142, 80%, 55%)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 1)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 0.85)";
+        }}
+      >
+        Assinar {plan.name}
+      </Button>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-background">
@@ -188,72 +262,30 @@ const Octorlink5GPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {plans.map((plan) => (
-                <div
-                  key={plan.name}
-                  className={`relative rounded-2xl p-6 md:p-8 border transition-all hover:-translate-y-1 ${
-                    plan.highlight
-                      ? "shadow-xl border-secondary/40"
-                      : "bg-card border-border shadow-md"
-                  }`}
-                  style={
-                    plan.highlight
-                      ? {
-                          background: "var(--gradient-primary)",
-                          color: "white",
-                          boxShadow: "var(--shadow-glow)",
-                        }
-                      : {}
-                  }
-                >
-                  {plan.highlight && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-primary text-xs font-bold px-3 py-1 rounded-full shadow">
-                      MAIS POPULAR
-                    </span>
-                  )}
-                  <h3 className={`text-xl font-bold mb-1 ${plan.highlight ? "text-white" : "text-foreground"}`}>
-                    {plan.name}
-                  </h3>
-                  <p className={`text-sm mb-4 ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>
-                    {plan.data} de internet
-                  </p>
-                  <div className="mb-6">
-                    <span className={`text-sm ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>R$</span>
-                    <span className={`text-4xl md:text-5xl font-extrabold ml-1 ${plan.highlight ? "text-white" : "text-foreground"}`}>
-                      {plan.price}
-                    </span>
-                    <span className={`text-sm ml-1 ${plan.highlight ? "text-white/80" : "text-muted-foreground"}`}>/mês</span>
-                  </div>
+            {/* Desktop grid */}
+            <div className="hidden sm:grid grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {plans.map((plan) => renderPlanCard(plan))}
+            </div>
 
-                  <ul className="space-y-2 mb-8">
-                    {plan.features.map((f) => (
-                      <li key={f} className="flex items-start gap-2 text-sm">
-                        <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.highlight ? "text-white" : "text-secondary"}`} strokeWidth={3} />
-                        <span className={plan.highlight ? "text-white/95" : "text-foreground/90"}>{f}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <Button
-                    size="lg"
-                    onClick={() => handleAssinar(plan.name)}
-                    className="w-full text-white font-semibold transition-all"
-                    style={{
-                      backgroundColor: "hsla(142, 70%, 45%, 0.85)",
-                      border: "1px solid hsl(142, 80%, 55%)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 1)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 0.85)";
-                    }}
-                  >
-                    Assinar {plan.name}
-                  </Button>
+            {/* Mobile carousel */}
+            <div className="sm:hidden max-w-md mx-auto pt-4">
+              <Carousel
+                opts={{ align: "center", loop: true }}
+                plugins={[Autoplay({ delay: 3500, stopOnInteraction: true })]}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {plans.map((plan) => (
+                    <CarouselItem key={plan.name} className="basis-full">
+                      {renderPlanCard(plan)}
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="flex justify-center gap-4 mt-6">
+                  <CarouselPrevious className="static translate-y-0" />
+                  <CarouselNext className="static translate-y-0" />
                 </div>
-              ))}
+              </Carousel>
             </div>
 
             <p className="text-center text-xs text-muted-foreground mt-8 max-w-2xl mx-auto">
