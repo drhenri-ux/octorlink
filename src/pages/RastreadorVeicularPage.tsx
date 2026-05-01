@@ -5,6 +5,14 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const benefits = [
   { icon: MapPin, title: "Rastreamento em tempo real", desc: "Acompanhe a localização do seu veículo 24h por dia, com atualização contínua." },
@@ -60,6 +68,62 @@ const RastreadorVeicularPage = () => {
   const greenBtn = {
     backgroundColor: "hsla(142, 70%, 45%, 0.85)",
     border: "1px solid hsl(142, 80%, 55%)",
+  };
+
+  const renderTrackerCard = (plan: TrackerPlan) => {
+    const isQuote = plan.metadata?.is_consultation === true || plan.price === null || plan.price === 0;
+    const target = plan.badge_text || plan.metadata?.vehicle_type || "";
+    const priceFormatted = plan.price?.toFixed(2).replace(".", ",");
+    return (
+      <div
+        key={plan.id}
+        className={`relative rounded-2xl p-6 md:p-8 border transition-all hover:-translate-y-1 h-full ${
+          plan.is_popular ? "shadow-xl border-secondary/40" : "bg-card border-border shadow-md"
+        }`}
+        style={plan.is_popular ? { background: "var(--gradient-primary)", color: "white", boxShadow: "var(--shadow-glow)" } : {}}
+      >
+        {plan.is_popular && (
+          <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-primary text-xs font-bold px-3 py-1 rounded-full shadow">
+            MAIS COMPLETO
+          </span>
+        )}
+        <h3 className={`text-xl font-bold mb-1 ${plan.is_popular ? "text-white" : "text-foreground"}`}>{plan.name}</h3>
+        {target && (
+          <p className={`text-sm mb-4 ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>{target}</p>
+        )}
+        <div className="mb-6">
+          {isQuote ? (
+            <span className={`text-2xl font-extrabold ${plan.is_popular ? "text-white" : "text-foreground"}`}>Sob consulta</span>
+          ) : (
+            <>
+              <span className={`text-sm ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>R$</span>
+              <span className={`text-4xl md:text-5xl font-extrabold ml-1 ${plan.is_popular ? "text-white" : "text-foreground"}`}>{priceFormatted}</span>
+              <span className={`text-sm ml-1 ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>/mês</span>
+            </>
+          )}
+        </div>
+
+        <ul className="space-y-2 mb-8">
+          {plan.features.map((f) => (
+            <li key={f} className="flex items-start gap-2 text-sm">
+              <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.is_popular ? "text-white" : "text-secondary"}`} strokeWidth={3} />
+              <span className={plan.is_popular ? "text-white/95" : "text-foreground/90"}>{f}</span>
+            </li>
+          ))}
+        </ul>
+
+        <Button
+          size="lg"
+          onClick={() => handleWhatsApp(`plano ${plan.name}`)}
+          className="w-full text-white font-semibold transition-all"
+          style={greenBtn}
+          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 1)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 0.85)"; }}
+        >
+          {isQuote ? "Solicitar orçamento" : `Contratar ${plan.name}`}
+        </Button>
+      </div>
+    );
   };
 
   return (
@@ -184,62 +248,30 @@ const RastreadorVeicularPage = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {plans.map((plan) => {
-                const isQuote = plan.metadata?.is_consultation === true || plan.price === null || plan.price === 0;
-                const target = plan.badge_text || plan.metadata?.vehicle_type || "";
-                const priceFormatted = plan.price?.toFixed(2).replace(".", ",");
-                return (
-                  <div
-                    key={plan.id}
-                    className={`relative rounded-2xl p-6 md:p-8 border transition-all hover:-translate-y-1 ${
-                      plan.is_popular ? "shadow-xl border-secondary/40" : "bg-card border-border shadow-md"
-                    }`}
-                    style={plan.is_popular ? { background: "var(--gradient-primary)", color: "white", boxShadow: "var(--shadow-glow)" } : {}}
-                  >
-                    {plan.is_popular && (
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-primary text-xs font-bold px-3 py-1 rounded-full shadow">
-                        MAIS COMPLETO
-                      </span>
-                    )}
-                    <h3 className={`text-xl font-bold mb-1 ${plan.is_popular ? "text-white" : "text-foreground"}`}>{plan.name}</h3>
-                    {target && (
-                      <p className={`text-sm mb-4 ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>{target}</p>
-                    )}
-                    <div className="mb-6">
-                      {isQuote ? (
-                        <span className={`text-2xl font-extrabold ${plan.is_popular ? "text-white" : "text-foreground"}`}>Sob consulta</span>
-                      ) : (
-                        <>
-                          <span className={`text-sm ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>R$</span>
-                          <span className={`text-4xl md:text-5xl font-extrabold ml-1 ${plan.is_popular ? "text-white" : "text-foreground"}`}>{priceFormatted}</span>
-                          <span className={`text-sm ml-1 ${plan.is_popular ? "text-white/80" : "text-muted-foreground"}`}>/mês</span>
-                        </>
-                      )}
-                    </div>
+            {/* Desktop grid */}
+            <div className="hidden md:grid grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {plans.map((plan) => renderTrackerCard(plan))}
+            </div>
 
-                    <ul className="space-y-2 mb-8">
-                      {plan.features.map((f) => (
-                        <li key={f} className="flex items-start gap-2 text-sm">
-                          <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${plan.is_popular ? "text-white" : "text-secondary"}`} strokeWidth={3} />
-                          <span className={plan.is_popular ? "text-white/95" : "text-foreground/90"}>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    <Button
-                      size="lg"
-                      onClick={() => handleWhatsApp(`plano ${plan.name}`)}
-                      className="w-full text-white font-semibold transition-all"
-                      style={greenBtn}
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 1)"; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "hsla(142, 70%, 45%, 0.85)"; }}
-                    >
-                      {isQuote ? "Solicitar orçamento" : `Contratar ${plan.name}`}
-                    </Button>
-                  </div>
-                );
-              })}
+            {/* Mobile carousel */}
+            <div className="md:hidden max-w-md mx-auto pt-4">
+              <Carousel
+                opts={{ align: "center", loop: true }}
+                plugins={[Autoplay({ delay: 3500, stopOnInteraction: true })]}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {plans.map((plan) => (
+                    <CarouselItem key={plan.id} className="basis-full">
+                      {renderTrackerCard(plan)}
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="flex justify-center gap-4 mt-6">
+                  <CarouselPrevious className="static translate-y-0" />
+                  <CarouselNext className="static translate-y-0" />
+                </div>
+              </Carousel>
             </div>
 
             <p className="text-center text-xs text-muted-foreground mt-8 max-w-2xl mx-auto">
