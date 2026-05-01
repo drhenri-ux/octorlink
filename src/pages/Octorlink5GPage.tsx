@@ -274,9 +274,9 @@ const Octorlink5GPage = () => {
                 plugins={[Autoplay({ delay: 3500, stopOnInteraction: true })]}
                 className="w-full"
               >
-                <CarouselContent>
+                <CarouselContent className="overflow-visible">
                   {plans.map((plan) => (
-                    <CarouselItem key={plan.name} className="basis-full">
+                    <CarouselItem key={plan.name} className="basis-full pt-4">
                       {renderPlanCard(plan)}
                     </CarouselItem>
                   ))}
