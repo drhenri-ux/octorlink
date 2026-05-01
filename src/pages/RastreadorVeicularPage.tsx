@@ -260,9 +260,9 @@ const RastreadorVeicularPage = () => {
                 plugins={[Autoplay({ delay: 3500, stopOnInteraction: true })]}
                 className="w-full"
               >
-                <CarouselContent>
+                <CarouselContent className="overflow-visible">
                   {plans.map((plan) => (
-                    <CarouselItem key={plan.id} className="basis-full">
+                    <CarouselItem key={plan.id} className="basis-full pt-4">
                       {renderTrackerCard(plan)}
                     </CarouselItem>
                   ))}
