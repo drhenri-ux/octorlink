@@ -28,10 +28,34 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link 
+                  to="/octorlink-5g"
+                  className="text-background/70 hover:text-background transition-colors text-sm"
+                >
+                  Octorlink 5G+
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/octorlink-tracker"
+                  className="text-background/70 hover:text-background transition-colors text-sm"
+                >
+                  Octorlink Tracker
+                </Link>
+              </li>
+              <li>
+                <Link 
                   to="/internet-empresarial"
                   className="text-background/70 hover:text-background transition-colors text-sm"
                 >
                   Internet Empresarial
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/termos"
+                  className="text-background/70 hover:text-background transition-colors text-sm"
+                >
+                  Termos e Privacidade
                 </Link>
               </li>
               {siteSettings?.indique_ganhe_visible && (
